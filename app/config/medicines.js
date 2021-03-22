@@ -1,26 +1,34 @@
-export const medicines = {
-    'allo': {
-        name: 'Allopurinol'
+export default [
+    {
+        id: 'allo',
+        title: 'Allopurinol'
     },
-    'azith': {
-        name: 'Azithromycin'
+    {
+        id: 'azith',
+        title: 'Azithromycin'
     },
-    'crocin': {
-        name: 'Crocin'
+    {
+        id: 'crocin',
+        title: 'Crocin'
     },
-    'dilt': {
-        name: 'Diltiazem'
+    {
+        id: 'dilt',
+        title: 'Diltiazem'
     },
-    'flu': {
-        name: 'Cold and Flu'
+    {
+        id: 'flu',
+        title: 'Cold and Flu'
     },
-    'ibu': {
-        name: 'Ibuprofen'
+    {
+        id: 'ibu',
+        title: 'Ibuprofen'
     },
-    'para': {
-        name: 'Paracetamol'
+    {
+        id: 'para',
+        title: 'Paracetamol'
     },
-    'tams': {
-        name: 'Tamsulin Hydrochloride'
+    {
+        id: 'tams',
+        title: 'Tamsulin Hydrochloride'
     },
-}
+];

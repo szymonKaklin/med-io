@@ -5,10 +5,12 @@ import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import AppText from '../components/AppText';
 import ImageInput from '../components/ImageInput';
-import { AppForm, AppFormField, SubmitButton } from '../components/forms';
+import { AppForm, AppFormField, AppFormPicker, SubmitButton } from '../components/forms';
+import PickerItem from '../components/PickerItem';
 
+import MEDICINES from '../config/medicines.js';
 
-function AddPrescriptionScreen({ navigation, route }) {
+function PrescriptionDetailsScreen({ navigation, route }) {
     const prescription = route.params
 
     return (
@@ -29,18 +31,22 @@ function AddPrescriptionScreen({ navigation, route }) {
                 />
                 <ImageInput></ImageInput>
                 <View style={{padding: 10}}>
-                    <AppText style={styles.title}>{prescription.title}</AppText>
                     <AppForm
                         initialValues={{medicine: `${prescription.title}`, directions: ''}}
                         onSubmit={values => console.log(values)}
                         //validationSchema={validationSchema}
                     >
-                        <AppFormField  //this has to be a picker component
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            icon="pill"
+                        {/* <AppPicker
+                            icon={"pill"}
+                            placeholder={"Medicine Name"}
+                        /> */}
+                        <AppFormPicker  //this has to be a picker component
+                            icon={"pill"}
+                            items={MEDICINES}
                             name="medicine"
-                            placeholder="Medicine" // right now you have to click on the placeholder to type
+                            numberOfColumns={1}
+                            PickerItemComponent={PickerItem}
+                            placeholder="Medicine Name"
                         />
                         <AppFormField
                             maxLength={255}
@@ -69,4 +75,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddPrescriptionScreen;
+export default PrescriptionDetailsScreen;
