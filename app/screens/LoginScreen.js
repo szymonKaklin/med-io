@@ -46,6 +46,7 @@ function LoginScreen({ navigation }) {
                     >
                         <AppFormField
                             autoCapitalize="none"
+                            errorColor="white"
                             autoCorrect={false}
                             icon="email"
                             keyboardType="email-address"
@@ -55,6 +56,7 @@ function LoginScreen({ navigation }) {
                         />
                         <AppFormField
                             autoCapitalize="none"
+                            errorColor="white"
                             autoCorrect={false}
                             icon="lock"
                             name="password"

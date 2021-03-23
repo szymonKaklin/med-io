@@ -12,18 +12,21 @@ const prescriptions = [
         id: 1,
         title: 'Ibuprofen',
         date: '01/01/2021',
+        directions: 'Take 3-4 times a day.\n Do not exceed 5 doses.',
         image: require('../assets/ibuprofen_sample.jpg')
     },
     {
         id: 2,
         title: 'Paracetamol',
         date: '01/01/2021',
+        directions: '',
         image: require('../assets/paracetamol_sample.jpg')
     },
     {
         id: 3,
         title: 'Aspirin',
         date: '01/01/2021',
+        directions: '',
         image: require('../assets/aspirin_sample.jpg')
     }
 ]

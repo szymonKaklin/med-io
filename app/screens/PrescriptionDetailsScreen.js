@@ -29,18 +29,14 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                         \nThis is your ${prescription.title} prescription.`,
                     )}
                 />
-                <ImageInput></ImageInput>
                 <View style={{padding: 10}}>
+                <ImageInput />
                     <AppForm
-                        initialValues={{medicine: `${prescription.title}`, directions: ''}}
+                        initialValues={{medicine: `${prescription.title}`, directions: `${prescription.directions}`}}
                         onSubmit={values => console.log(values)}
                         //validationSchema={validationSchema}
                     >
-                        {/* <AppPicker
-                            icon={"pill"}
-                            placeholder={"Medicine Name"}
-                        /> */}
-                        <AppFormPicker  //this has to be a picker component
+                        <AppFormPicker
                             icon={"pill"}
                             items={MEDICINES}
                             name="medicine"
@@ -52,8 +48,9 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                             maxLength={255}
                             multiline
                             name="directions"
-                            numberOfLines={3}
-                            placeholder={`Directions for Use\n`}
+                            numberOfLines={5}
+                            defaultValue={`${prescription.directions}`}
+                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"`}
                         />
                         <SubmitButton title="Save Changes" />
                     </AppForm>

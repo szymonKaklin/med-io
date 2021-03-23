@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 import colors from '../config/colors';
+import AppText from './AppText';
 
 function ImageInput() {
     const [imageUri, onChangeImage] = useState();
@@ -32,7 +33,12 @@ function ImageInput() {
     return (
       <TouchableWithoutFeedback onPress={handlePress}>
         <View style={styles.container}>
-            {!imageUri && <MaterialCommunityIcons color={colors.medium} name="image-plus" size={40} />}
+            {!imageUri &&
+            <>
+              <AppText>Add Image</AppText>
+              <MaterialCommunityIcons color={colors.medium} name="image-plus" size={40} />
+            </>
+            }
             {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         </View>
       </TouchableWithoutFeedback>
@@ -42,14 +48,12 @@ function ImageInput() {
 const styles = StyleSheet.create({
   container: {
       alignItems: 'center',
-      backgroundColor: colors.light,
+      backgroundColor: colors.white,
       borderRadius: 15,
-      borderWidth: 2,
-      borderColor: colors.gray,
-      height: 100,
+      height: 120,
       justifyContent: 'center',
       overflow: "hidden",
-      width: 100,
+      width: 120,
   },
   image: {
       height: '100%',

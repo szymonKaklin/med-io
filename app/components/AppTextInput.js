@@ -9,10 +9,8 @@ function AppTextInput({ icon, ...otherProps }) {
         <View style={styles.container}>
                 {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.black} style={styles.icon} />}
                 <TextInput
+                    // defaultValue={'test'}
                     style={defaultStyles.text}
-                    onSubmitEditing={() => console.log('submit')}
-                    onPressOut={() => console.log('press out')}
-                    onPressIn={() => console.log('press out')}
                     {...otherProps}
                 />
         </View>
