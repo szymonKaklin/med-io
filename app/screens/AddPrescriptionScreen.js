@@ -12,7 +12,7 @@ import PickerItem from '../components/PickerItem';
 import MEDICINES from '../config/medicines.js';
 
 const validationSchema = Yup.object().shape({
-    medicine: Yup.object().required().nullable().label("Medicine"),
+    medicine: Yup.string().required().nullable().label("Medicine"),
     directions: Yup.string().label("Directions"),
 });
 

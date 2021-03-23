@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -9,6 +10,11 @@ import { AppForm, AppFormField, AppFormPicker, SubmitButton } from '../component
 import PickerItem from '../components/PickerItem';
 
 import MEDICINES from '../config/medicines.js';
+
+const validationSchema = Yup.object().shape({
+    medicine: Yup.string().required().nullable().label("Medicine"),
+    directions: Yup.string().label("Directions"),
+});
 
 function PrescriptionDetailsScreen({ navigation, route }) {
     const prescription = route.params
@@ -34,7 +40,7 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     <AppForm
                         initialValues={{medicine: `${prescription.title}`, directions: `${prescription.directions}`}}
                         onSubmit={values => console.log(values)}
-                        //validationSchema={validationSchema}
+                        validationSchema={validationSchema}
                     >
                         <AppFormPicker
                             icon={"pill"}

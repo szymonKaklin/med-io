@@ -9,6 +9,7 @@ import PickerItem from './PickerItem';
 import AppText from './AppText';
 import Screen from './Screen';
 import ListItemSeperator from './ListItemSeperator';
+import { ScrollView } from 'react-native';
 
 function AppPicker({
     icon,
@@ -35,6 +36,7 @@ function AppPicker({
                     <MaterialCommunityIcons name="chevron-down" size={20} color={colors.medium} />
                 </View>
             </TouchableWithoutFeedback>
+            
             <Modal visible={modalVisible} animationType="slide" transparent>
                 <Screen style={{flex: 1, flexDirection: 'column-reverse'}}>
                     <View style={styles.modalContent}>
