@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AppText from './AppText'
@@ -10,7 +10,21 @@ function PrescriptionItem({title, subTitle, image, onPress}) {
         <View style={styles.card}>
             <Image style={styles.image} source={image} />
             <View style={styles.closeIcon}>
-                <TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={() => 
+                        Alert.alert(
+                            'Confirm Deletion',
+                            `Are you sure you want to delete this ${title} prescription?`,
+                            [
+                                {
+                                text: 'Yes',
+                                },
+                                {
+                                text: 'No',
+                                }
+                            ],
+                    )}
+                >
                     <MaterialCommunityIcons name="trash-can-outline" color="red" size={40} />
                 </TouchableOpacity>
             </View>
