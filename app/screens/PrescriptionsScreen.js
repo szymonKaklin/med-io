@@ -8,6 +8,7 @@ import AppNavBar from '../components/AppNavBar';
 import AppText from '../components/AppText';
 import AppWideButton from '../components/AppWideButton';
 import cache from '../cache/cache';
+import { set } from 'react-native-reanimated';
 
 // const prescriptions_test = [
 //     {
@@ -39,14 +40,14 @@ import cache from '../cache/cache';
 function PrescriptionsScreen({ navigation }) {
 
     const [prescriptions, setPrescriptions] = useState([]); // sets the prescriptions variable - initially an empty array
-    const [refreshing, setRefreshing] = useState(false);
-    
+    const [update, setUpdate] = useState(null);
+    const [refreshing, setRefreshing] = useState(false); // setting state of refresh when pulling up to refresh list
+
     const loadPrescriptions = async () => {
         console.log('Loading prescriptions from storage');
         const data = await cache.get('PrescriptionList');
-        console.log(data);
+        
         setPrescriptions(data);
-        console.log(prescriptions);
     };
     
     // Everytime we see this screen, we load the prescriptions stored in asyncstorage
@@ -57,7 +58,7 @@ function PrescriptionsScreen({ navigation }) {
         })
         return unsubscribe;
     }, [navigation])
-    
+
     return (
         <Screen style={styles.container}>
             <AppNavBar
@@ -84,20 +85,23 @@ function PrescriptionsScreen({ navigation }) {
                 }
                 <FlatList
                     data={prescriptions}
+                    //extraData={update}
                     keyExtractor={prescription => prescription.id.toString()}
                     renderItem={({item}) => 
                         <PrescriptionItem
+                            id={item.id}
                             title={item.medicine}
                             subTitle={"Added: " + item.date}
                             image={item.image}
                             onPress={() => navigation.navigate('PrescriptionDetails', item)}
+                            //onRemoved={setUpdate}
                         />
                     }
                     refreshing={refreshing}
                     onRefresh={() => {
                         console.log('refreshing prescriptions');
                         setRefreshing(true);
-                        // do whatever
+                        loadPrescriptions();
                         setRefreshing(false);
                     }}
                 />

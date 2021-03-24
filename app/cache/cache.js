@@ -26,7 +26,22 @@ const get = async (key) => {
     }   
 }
 
+const removePrescription = async (id) => {
+    try {
+        const data = await AsyncStorage.getItem(prefix + 'PrescriptionList');
+        const array = JSON.parse(data)
+
+        const newArray = array.filter((item) => (item.id !== id) );
+
+        await AsyncStorage.setItem(prefix + 'PrescriptionList', JSON.stringify(newArray));
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export default {
     store,
     get,
+    removePrescription,
 };

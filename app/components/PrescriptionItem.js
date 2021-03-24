@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import AppText from './AppText'
-import colors from '../config/colors'
+import AppText from './AppText';
+import colors from '../config/colors';
+import cache from '../cache/cache';
 
-function PrescriptionItem({title, subTitle, image, onPress}) {
+function PrescriptionItem({id, title, subTitle, image, onPress, onRemoved}) {
+
+    const handleRemove = () => {
+        cache.removePrescription(id);
+        onRemoved(true);
+    };
+
     return (
         <View style={styles.card}>
             <Image style={styles.image} source={image} />
@@ -18,6 +25,7 @@ function PrescriptionItem({title, subTitle, image, onPress}) {
                             [
                                 {
                                 text: 'Yes',
+                                onPress: () => handleRemove(),
                                 },
                                 {
                                 text: 'No',
