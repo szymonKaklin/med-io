@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
-import AppText from '../components/AppText';
 import ImageInput from '../components/ImageInput';
 import { AppForm, AppFormField, AppFormPicker, SubmitButton } from '../components/forms';
 import PickerItem from '../components/PickerItem';
+import cache from '../cache/cache';
 
 import MEDICINES from '../config/medicines.js';
 
@@ -17,7 +17,16 @@ const validationSchema = Yup.object().shape({
 });
 
 function AddPrescriptionScreen({ navigation }) {
-    return (
+
+    const handleSubmit = (values) => {
+        // have function from cache folder which takes this object
+        console.log('adding prescription');
+        cache.store('PrescriptionList', [values]);
+        // small timeout before goin back to the prescriptions so list can refresh unseen
+        setTimeout(() => navigation.goBack(), 200);
+    }
+    
+    return ( 
         <Screen>
             <ScrollView scrollEnabled={false}>
                 <AppNavBar
@@ -36,7 +45,7 @@ function AddPrescriptionScreen({ navigation }) {
                 <ImageInput />
                     <AppForm
                         initialValues={{medicine: ``, directions: ``}}
-                        onSubmit={values => console.log(values)}
+                        onSubmit={values => handleSubmit(values)}
                         validationSchema={validationSchema}
                     >
                         <AppFormPicker

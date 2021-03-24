@@ -32,13 +32,13 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     onPress2={() => Alert.alert(
                         'Prescription Details',
                         `This screen allows you to view or edit a specific prescription.
-                        \nThis is your ${prescription.title} prescription.`,
+                        \nThis is your ${prescription.medicine} prescription.`,
                     )}
                 />
                 <View style={{padding: 10}}>
                 <ImageInput />
                     <AppForm
-                        initialValues={{medicine: `${prescription.title}`, directions: `${prescription.directions}`}}
+                        initialValues={{medicine: `${prescription.medicine}`, directions: `${prescription.directions}`}}
                         onSubmit={values => console.log(values)}
                         validationSchema={validationSchema}
                     >
