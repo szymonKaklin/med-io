@@ -37,6 +37,7 @@ import cache from '../cache/cache';
 // cache.store('PrescriptionList', []);
 
 function PrescriptionsScreen({ navigation }) {
+
     const [prescriptions, setPrescriptions] = useState([]); // sets the prescriptions variable - initially an empty array
     const [refreshing, setRefreshing] = useState(false);
     

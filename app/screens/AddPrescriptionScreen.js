@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -51,7 +52,11 @@ function AddPrescriptionScreen({ navigation }) {
                 <View style={{padding: 10}}>
                 <ImageInput />
                     <AppForm
-                        initialValues={{id: Date.now(), medicine: ``, directions: ``}}
+                        initialValues={{
+                            id: Date.now(),
+                            date: `${moment().format('D/M/Y')}`,
+                            medicine: ``,
+                            directions: ``}}
                         onSubmit={values => handleSubmit(values)}
                         validationSchema={validationSchema}
                     >
