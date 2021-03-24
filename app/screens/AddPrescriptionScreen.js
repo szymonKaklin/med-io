@@ -17,11 +17,18 @@ const validationSchema = Yup.object().shape({
 });
 
 function AddPrescriptionScreen({ navigation }) {
-
-    const handleSubmit = (values) => {
+    
+    const handleSubmit = async (values) => {
         // have function from cache folder which takes this object
-        console.log('adding prescription');
-        cache.store('PrescriptionList', [values]);
+        console.log('adding prescription: ', values);
+        let storedList = await cache.get('PrescriptionList');
+        if (!storedList) {
+            cache.store('PrescriptionList', [values]);
+        }
+        else {
+            cache.store('PrescriptionList', [...storedList, values]);
+        }
+
         // small timeout before goin back to the prescriptions so list can refresh unseen
         setTimeout(() => navigation.goBack(), 200);
     }
@@ -44,7 +51,7 @@ function AddPrescriptionScreen({ navigation }) {
                 <View style={{padding: 10}}>
                 <ImageInput />
                     <AppForm
-                        initialValues={{medicine: ``, directions: ``}}
+                        initialValues={{id: Date.now(), medicine: ``, directions: ``}}
                         onSubmit={values => handleSubmit(values)}
                         validationSchema={validationSchema}
                     >

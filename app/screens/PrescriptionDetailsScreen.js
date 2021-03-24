@@ -38,7 +38,7 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                 <View style={{padding: 10}}>
                 <ImageInput />
                     <AppForm
-                        initialValues={{medicine: `${prescription.medicine}`, directions: `${prescription.directions}`}}
+                        initialValues={{id: `${prescription.id}`, medicine: `${prescription.medicine}`, directions: `${prescription.directions}`}}
                         onSubmit={values => console.log(values)}
                         validationSchema={validationSchema}
                     >

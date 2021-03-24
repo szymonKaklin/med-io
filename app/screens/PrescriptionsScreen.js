@@ -33,8 +33,8 @@ import cache from '../cache/cache';
 //     }
 // ]
 
-// console.log('test store')
-// cache.store('PrescriptionList', prescriptions_test);
+// console.log('initialising prescriptionList to an empty array')
+// cache.store('PrescriptionList', []);
 
 function PrescriptionsScreen({ navigation }) {
     const [prescriptions, setPrescriptions] = useState([]); // sets the prescriptions variable - initially an empty array
@@ -83,7 +83,7 @@ function PrescriptionsScreen({ navigation }) {
                 }
                 <FlatList
                     data={prescriptions}
-                    keyExtractor={prescription => prescription.medicine.toString()}
+                    keyExtractor={prescription => prescription.id.toString()}
                     renderItem={({item}) => 
                         <PrescriptionItem
                             title={item.medicine}
