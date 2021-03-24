@@ -6,11 +6,11 @@ import AppText from './AppText';
 import colors from '../config/colors';
 import cache from '../cache/cache';
 
-function PrescriptionItem({id, title, subTitle, image, onPress, onRemoved}) {
+function PrescriptionItem({id, title, subTitle, image, onPress /*onRemoved*/}) {
 
     const handleRemove = () => {
         cache.removePrescription(id);
-        onRemoved(true);
+        //onRemoved(true);
     };
 
     return (
