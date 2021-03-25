@@ -8,7 +8,6 @@ import AppNavBar from '../components/AppNavBar';
 import AppText from '../components/AppText';
 import AppWideButton from '../components/AppWideButton';
 import cache from '../cache/cache';
-import { set } from 'react-native-reanimated';
 
 // const prescriptions_test = [
 //     {
@@ -35,12 +34,12 @@ import { set } from 'react-native-reanimated';
 // ]
 
 // console.log('initialising prescriptionList to an empty array')
-// cache.store('PrescriptionList', []);
+cache.store('PrescriptionList', []);
 
 function PrescriptionsScreen({ navigation }) {
 
     const [prescriptions, setPrescriptions] = useState([]); // sets the prescriptions variable - initially an empty array
-    const [update, setUpdate] = useState(null);
+    const [update, setEmpty] = useState(null); // state used to tell when prescription list is empty
     const [refreshing, setRefreshing] = useState(false); // setting state of refresh when pulling up to refresh list
 
     const loadPrescriptions = async () => {
@@ -48,6 +47,9 @@ function PrescriptionsScreen({ navigation }) {
         const data = await cache.get('PrescriptionList');
         
         setPrescriptions(data);
+
+        if (!prescriptions)
+            setPrescriptions([])
     };
     
     // Everytime we see this screen, we load the prescriptions stored in asyncstorage
@@ -78,7 +80,7 @@ function PrescriptionsScreen({ navigation }) {
                     )}
             />
             <View style={styles.list}>
-                {!prescriptions &&
+                {(prescriptions.length === 0) &&
                     <View style={styles.noPrescriptions}>
                         <AppText style={{fontSize: 30, textAlign: 'center'}}>Your prescriptions list is currrently empty.</AppText>
                     </View>
