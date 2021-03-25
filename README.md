@@ -1,4 +1,4 @@
-![alt text](./app/assets/medio_logo_outline.png?raw=true)
+![alt text](./app/assets/medio_logo_outlined.png?raw=true)
 
 ## What is it?
 
