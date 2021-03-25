@@ -1,4 +1,4 @@
-![alt text](https://github.com/szymonKaklin/med-io/app/assets/medio_logo.png?raw=true)
+![alt text](./app/assets/medio_logo.png?raw=true)
 
 ## What is it?
 
