@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         height: 200,
     },
     noImage: {
-        backgroundColor: colors.primaryLight,
+        backgroundColor: colors.secondaryLight,
         alignSelf: 'center',
         width: "100%",
         height: 200,
