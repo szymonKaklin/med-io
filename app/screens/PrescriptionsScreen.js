@@ -34,7 +34,6 @@ import cache from '../cache/cache';
 // ]
 
 // console.log('initialising prescriptionList to an empty array')
-cache.store('PrescriptionList', []);
 
 function PrescriptionsScreen({ navigation }) {
 
