@@ -9,46 +9,20 @@ import AppText from '../components/AppText';
 import AppWideButton from '../components/AppWideButton';
 import cache from '../cache/cache';
 
-// const prescriptions_test = [
-//     {
-//         //id: 1,
-//         medicine: 'Ibuprofen',
-//         //date: '01/01/2021',
-//         directions: 'Take 3-4 times a day.\n Do not exceed 5 doses.',
-//         //image: require('../assets/ibuprofen_sample.jpg')
-//     },
-//     {
-//         //id: 2,
-//         medicine: 'Paracetamol',
-//         //date: '01/01/2021',
-//         directions: '',
-//         //image: require('../assets/paracetamol_sample.jpg')
-//     },
-//     {
-//         //id: 3,
-//         medicine: 'Aspirin',
-//         //date: '01/01/2021',
-//         directions: '',
-//         //image: require('../assets/aspirin_sample.jpg')
-//     }
-// ]
-
-// console.log('initialising prescriptionList to an empty array')
 
 function PrescriptionsScreen({ navigation }) {
 
     const [prescriptions, setPrescriptions] = useState([]); // sets the prescriptions variable - initially an empty array
-    const [update, setEmpty] = useState(null); // state used to tell when prescription list is empty
     const [refreshing, setRefreshing] = useState(false); // setting state of refresh when pulling up to refresh list
 
     const loadPrescriptions = async () => {
         console.log('Loading prescriptions from storage');
         const data = await cache.get('PrescriptionList');
         
-        setPrescriptions(data);
-
-        if (!prescriptions)
-            setPrescriptions([])
+        if (!data)
+            setPrescriptions([]);
+        else 
+            setPrescriptions(data);
     };
     
     // Everytime we see this screen, we load the prescriptions stored in asyncstorage
@@ -93,7 +67,7 @@ function PrescriptionsScreen({ navigation }) {
                             id={item.id}
                             title={item.medicine}
                             subTitle={"Added: " + item.date}
-                            image={item.image}
+                            imageUri={item.image}
                             onPress={() => navigation.navigate('PrescriptionDetails', item)}
                             //onRemoved={setUpdate}
                         />

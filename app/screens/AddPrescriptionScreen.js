@@ -6,7 +6,7 @@ import moment from 'moment';
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import ImageInput from '../components/ImageInput';
-import { AppForm, AppFormField, AppFormPicker, SubmitButton } from '../components/forms';
+import { AppForm, AppFormField, AppFormPicker, SubmitButton, AppFormImagePicker } from '../components/forms';
 import PickerItem from '../components/PickerItem';
 import cache from '../cache/cache';
 
@@ -23,6 +23,7 @@ function AddPrescriptionScreen({ navigation }) {
         // have function from cache folder which takes this object
         console.log('adding prescription: ', values);
         let storedList = await cache.get('PrescriptionList');
+        
         if (!storedList) {
             cache.store('PrescriptionList', [values]);
         }
@@ -50,16 +51,18 @@ function AddPrescriptionScreen({ navigation }) {
                     )}
                 />
                 <View style={{padding: 10}}>
-                <ImageInput />
                     <AppForm
                         initialValues={{
                             id: Date.now(),
                             date: `${moment().format('D/M/Y')}`,
                             medicine: ``,
-                            directions: ``}}
+                            directions: ``,
+                            image: ``,
+                        }}
                         onSubmit={values => handleSubmit(values)}
                         validationSchema={validationSchema}
                     >
+                        <AppFormImagePicker name="image" />
                         <AppFormPicker
                             icon={"pill"}
                             items={MEDICINES}

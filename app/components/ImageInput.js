@@ -6,25 +6,34 @@ import * as ImagePicker from 'expo-image-picker';
 import colors from '../config/colors';
 import AppText from './AppText';
 
-function ImageInput() {
+function ImageInput({ name, onAddImage }) {
     const [imageUri, onChangeImage] = useState();
     
     const handlePress = () => {
         if (!imageUri) selectImage();
         else Alert.alert('Delete', 'Are you sure you want to delete this image?', [
-            { text: 'Yes', onPress: () => onChangeImage(null) },
-            { text: 'No' },
+            {
+                text: 'Yes', onPress: () => 
+                    { 
+                        onChangeImage(null);
+                        onAddImage('');
+                    }
+            },
+            {
+                text: 'No' 
+            },
         ])
     };
     
     const selectImage = async () => {
         try {
-          const result = await ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              quality: 0.5,
-          });
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                quality: 0.5,
+          })
           if (!result.cancelled)
             onChangeImage(result.uri);
+            onAddImage(result.uri);
         } catch (error) {
           console.log('Error reading an image:', error);
         }

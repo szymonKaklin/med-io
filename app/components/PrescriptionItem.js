@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import AppText from './AppText';
 import colors from '../config/colors';
 import cache from '../cache/cache';
 
-function PrescriptionItem({id, title, subTitle, image, onPress /*onRemoved*/}) {
+function PrescriptionItem({id, title, subTitle, imageUri, onPress /*onRemoved*/}) {
 
     const handleRemove = () => {
         cache.removePrescription(id);
@@ -15,7 +16,14 @@ function PrescriptionItem({id, title, subTitle, image, onPress /*onRemoved*/}) {
 
     return (
         <View style={styles.card}>
-            <Image style={styles.image} source={image} />
+            {(imageUri !== '') ?
+                (
+                    <Image style={styles.image} source={{uri: imageUri}} />
+                ) : (
+                    <View style={styles.noImage}>
+                        <FontAwesome5 name="prescription-bottle-alt" color="white" size={150} />
+                    </View>
+                )}
             <View style={styles.closeIcon}>
                 <TouchableOpacity 
                     onPress={() => 
@@ -73,8 +81,15 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        width: "80%",
+        width: "100%",
         height: 200,
+    },
+    noImage: {
+        backgroundColor: colors.primaryLight,
+        alignSelf: 'center',
+        width: "100%",
+        height: 200,
+        padding: 20,
     },
     subTitle: {
         color: colors.secondary,

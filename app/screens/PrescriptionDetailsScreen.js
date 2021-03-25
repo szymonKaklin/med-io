@@ -42,7 +42,8 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                             id: `${prescription.id}`,
                             date: `${prescription.date}`,
                             medicine: `${prescription.medicine}`,
-                            directions: `${prescription.directions}`
+                            directions: `${prescription.directions}`,
+                            image: prescription.image,
                         }}
                         onSubmit={values => console.log(values)}
                         validationSchema={validationSchema}
