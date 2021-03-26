@@ -12,45 +12,51 @@ import defaultStyles from '../config/styles';
 
 // Function for capturing image and sending to server
 function capturePill(navigation, cameraRef, setLoading) {
-  console.log('Pressed Cam Button');
-  cameraRef.current.takePictureAsync().then(picture => {
-    setLoading(true); // Set loading spinner in motion
-    cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
+    console.log('Pressed Cam Button');
+    cameraRef.current.takePictureAsync().then(picture => {
+        setLoading(true); // Set loading spinner in motion
+        cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
 
-    let localUri = picture.uri;
+        let localUri = picture.uri;
 
-    // Promise for posting picture data to server - add method for web
-    new Promise((resolve, reject) => {
-      let filename = localUri.split('/').pop(); // Get the filename from the path
+        // Promise for posting picture data to server - add method for web
+        new Promise((resolve, reject) => {
+            let filename = localUri.split('/').pop(); // Get the filename from the path
 
-      // Infer the type of the image
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+            // Infer the type of the image
+            let match = /\.(\w+)$/.exec(filename);
+            let type = match ? `image/${match[1]}` : `image`;
 
-      let formData = new FormData();
-      formData.append('file', { uri: localUri, name: filename, type });
+            let formData = new FormData();
+            formData.append('file', { uri: localUri, name: filename, type });
 
-      // Post the form data to the prediction server
-      // temporary timeout function to simulate posting
-      setTimeout((() => resolve(console.log(formData))), 1000);
-      /*
-      */
-      
-    }).then(response => {
-      // This is where we would handle the response by navigating to appropriate result
-      setLoading(false); // stop the loading spinner
-      cameraRef.current.resumePreview() // resume live camera preview
+            // Post the form data to the prediction server
+            // temporary timeout function to simulate posting
+            //setTimeout((() => resolve(console.log(formData))), 1000);
+            fetch("http://192.168.1.171:9999/predict", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+            }).then(response => resolve(response));
 
-      // The model returns the confidence as logsoftmax (this is a strange function with a negative value).
-      // If the confidence is more positive than -1 we assume the prediction is correct. Otherwise there is no prediction.
-      // This assumption needs tuning
-      let medicineID = 'medicineID'
+        }).then(response => {
+            response.json().then(result => {        
+                // This is where we would handle the response by navigating to appropriate result
+                setLoading(false); // stop the loading spinner
+                cameraRef.current.resumePreview() // resume live camera preview
 
-      // Navigate to the results page sending the id of the medicien and the image as parameters
-      navigation.navigate('Result', { medicineID, image: localUri });
+                // The model returns the confidence as logsoftmax (this is a strange function with a negative value).
+                // If the confidence is more positive than -1 we assume the prediction is correct. Otherwise there is no prediction.
+                // This assumption needs tuning
+                let medicineID = result.confidence > -1 ? result.label : null;
+
+                // Navigate to the results page sending the id of the medicien and the image as parameters
+                navigation.navigate('Result', { medicineID, image: localUri });
+            })
+        })
     })
-
-  })
 }
 
 // Main export function

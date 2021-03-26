@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import Screen from '../components/Screen';
@@ -40,29 +40,33 @@ import AppWideButton from '../components/AppWideButton';
 
 // Not identified
 function ResultScreen({ route, navigation }) {
-    // For when we get a pill we want to add to prescriptions
-    let add = true;
 
     // Load the parameters send from the camera screen giving information about the pill from the server and the captured image
     const { medicineID, image: imageURI } = route.params;
+    
+    // For when we get a pill we want to add to prescriptions
+    let add = true;
+    
+    // State to store the prescription instructions
+    const [prescriptionInstructions, setPrescriptionInstructions] = useState(null);
 
-  return (
-    <Screen style={styles.screen}>
-        <AppNavBar
-            title={'Back'}
-            title2={'Help'}
-            icon={"chevron-left"}
-            icon2={"help-circle-outline"}
-            iconExtra={'camera'}
-            onPress={() => navigation.goBack()}
-        />
-        <ResultItem title={medicineID} subTitle={'Found'} image={imageURI}/>
-        <View style={styles.container}>
-            {/* <AppWideButton title={'Go to Prescription'}/> */}
-            {add && <AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>}
-        </View>
-    </Screen>
-  );
+    return (
+        <Screen style={styles.screen}>
+            <AppNavBar
+                title={'Back'}
+                title2={'Help'}
+                icon={"chevron-left"}
+                icon2={"help-circle-outline"}
+                iconExtra={'camera'}
+                onPress={() => navigation.goBack()}
+            />
+            <ResultItem title={medicineID} subTitle={'Found'} image={imageURI}/>
+            <View style={styles.container}>
+                {/* <AppWideButton title={'Go to Prescription'}/> */}
+                {add && <AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>}
+            </View>
+        </Screen>
+    );
 }
 
 const styles = StyleSheet.create({

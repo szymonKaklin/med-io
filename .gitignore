@@ -9,5 +9,16 @@ npm-debug.*
 *.orig.*
 web-build/
 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python model - too large of a file
+model.pt
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
 # macOS
 .DS_Store
