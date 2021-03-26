@@ -9,13 +9,17 @@ Med.io is being built as part of an MEng university project. The app will allow 
 + ~~Prescription editing/adding~~
 	+ ~~Add optional image to prescriptions~~
 	+ Specific prescription updating
++ Result page rendering conditional on result of post request
 + User account creation
 	+ Firebase user authentication
-+ Back-end
-	+ Post request with image to model
++ ~~Back-end~~
+	+ ~~Be able to post image to model on local server and obtain result~~
+	+ Set up google cloud instance
+	+ Update all this using this years model
 
 ### Known Issues
 
++ You can send multiple post requests by pressing the camera button multiple times
 + You can add multiple prescriptions at the same time by pressing the add prescription button too quickly
 + Prescription list does not automatically refresh when a prescription is removed - a manual refresh by pulling down on the list is required
 + Login Password field glitches out visually on long strings; but validates correctly
