@@ -7,6 +7,7 @@ import AppNavBar from '../components/AppNavBar';
 import defaultStyles from '../config/styles'
 import ResultItem from '../components/ResultItem';
 import AppWideButton from '../components/AppWideButton';
+import cache from '../cache/cache';
 
 import MEDICINES from '../config/medicines';
 
@@ -21,12 +22,32 @@ function ResultScreen({ route, navigation }) {
     // Set variable to prescription object that was found/null
     const [foundPrescription, setFoundPrescription] = useState(null);
 
-    // Checking for the identified medicine in medicines.js
+    const loadPrescription = async (title) => {
+        console.log('Loading prescriptions from storage');
+        const data = await cache.get('PrescriptionList');
+        
+        if (!data) {
+            // no prescription found :(
+            setFoundPrescription(null);
+        }
+        else {
+            // currently we just find the first matching prescription entry and output that
+            const found = data.find(prescription => prescription.medicine === title)
+            setFoundPrescription(found);
+        }
+    };
+
+    // Checking for the identified medicine in medicines.js on screen load
     useEffect(() => {
         let found = MEDICINES.find(medicine => medicine.id === medicineID );
     
-        if (found)
+        if (found) {
             setFoundMedicine(found)
+            
+            // having found a medicine, we can also search for its prescription(s)
+            loadPrescription(found.title);
+        }
+
     }, [])
     
     return (

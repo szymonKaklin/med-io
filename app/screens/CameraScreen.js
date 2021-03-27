@@ -41,7 +41,7 @@ function capturePill(navigation, cameraRef, setLoading) {
             }).then(response => {
                 resolve(response)
             }).catch(error => {
-                console.log('Failed to post: ', error)
+                console.log('Failed to post image to server: ', error)
                 setLoading(false);
                 Alert.alert(
                     'Failed to Post Image', 
@@ -70,119 +70,119 @@ function capturePill(navigation, cameraRef, setLoading) {
                 navigation.navigate('Result', { medicineID, image: localUri });
             })
         }).catch(error => {
-            console.log('The image was posted, but server response failed', error)
+            console.log('The image was posted, but server response failed:', error)
         })
     })
 }
 
 // Main export function
 function CameraScreen({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  
-  // This state is used to track whether the loading spinner should be visible
-  const [loading, setLoading] = useState(false); 
+    const [hasPermission, setHasPermission] = useState(null);
+    
+    // This state is used to track whether the loading spinner should be visible
+    const [loading, setLoading] = useState(false); 
 
-  // This allows us to keep a track of the camera element so we can call methods of it
-  const cameraRef = useRef(null); 
-  
-  // This one is for setting the flash mode
-  const [flash, setFlash] = useState(false)
+    // This allows us to keep a track of the camera element so we can call methods of it
+    const cameraRef = useRef(null); 
+    
+    // This one is for setting the flash mode
+    const [flash, setFlash] = useState(false)
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA); // Camera.requestPermissionsAsync() was used previously but doesnt work on web
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
+    useEffect(() => {
+        (async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA); // Camera.requestPermissionsAsync() was used previously but doesnt work on web
+        setHasPermission(status === 'granted');
+        })();
+    }, []);
 
-  // Renders if permission status is null
-  if (hasPermission === null) {
-    return <View />;
-  }
-  // Renders only if the user has camera permissions disabled in settings
-  if (hasPermission === false) {
-    return (
-      <Screen style={styles.container}>
-        <View style={styles.noaccess}>
-          <AppText>App has no access to camera.</AppText>
-          <AppText>Please enable access in device Settings.</AppText>
-        </View>
-        <View style={styles.navbar}>
-          <AppNavBar
-            title={'Menu'}
-            title2={'Help'}
-            icon={"menu"}
-            icon2={"help-circle-outline"}
-            onPress={() => navigation.navigate('Menu')}
-            onPress2={() => Alert.alert(
-              'Camera Screen',
-              `Currently, the app has no access to your device camera.
-              \nPlease enable this permission in your device settings.`,
-              )}
-            />
-        </View>
-      </Screen>
-    );
-  }
-
-  // Main UI
-  return (
-    <Screen style={styles.container}>
-        <Camera style={styles.camera} type={Camera.Constants.Type.back} flashMode={flash} ref={cameraRef}/>
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={loading}/>
-        </View>
-        <View style={styles.navbar}>
-          <AppNavBar
-            title={'Menu'}
-            title2={'Help'}
-            icon={"menu"}
-            icon2={"help-circle-outline"}
-            onPress={() => navigation.navigate('Menu')}
-            onPress2={() => Alert.alert(
-              'Camera Screen',
-              `Aim your phone camera at the medicine, and tap the 'Take Picture' button to attempt to identify it.
-              \n The bottom left button can be used to toggle the flash on/off.
-              \n Navigate to the main menu by pressing the top left 'Menu' button.`,
-              )}
-            />
-        </View>
-        <View>
+    // Renders if permission status is null
+    if (hasPermission === null) {
+        return <View />;
+    }
+    // Renders only if the user has camera permissions disabled in settings
+    if (hasPermission === false) {
+        return (
+        <Screen style={styles.container}>
+            <View style={styles.noaccess}>
+            <AppText>App has no access to camera.</AppText>
+            <AppText>Please enable access in device Settings.</AppText>
+            </View>
+            <View style={styles.navbar}>
             <AppNavBar
-              icon={flash ? "flash" : "flash-off"}
-              icon2={"image-plus"}
-              onPress={() => setFlash(flash ? false : true)}
-            />
-            <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading)} />
-        </View>
-    </Screen>
-  );
+                title={'Menu'}
+                title2={'Help'}
+                icon={"menu"}
+                icon2={"help-circle-outline"}
+                onPress={() => navigation.navigate('Menu')}
+                onPress2={() => Alert.alert(
+                'Camera Screen',
+                `Currently, the app has no access to your device camera.
+                \nPlease enable this permission in your device settings.`,
+                )}
+                />
+            </View>
+        </Screen>
+        );
+    }
+
+    // Main UI
+    return (
+        <Screen style={styles.container}>
+            <Camera style={styles.camera} type={Camera.Constants.Type.back} flashMode={flash} ref={cameraRef}/>
+            <View style={styles.loading}>
+            <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={loading}/>
+            </View>
+            <View style={styles.navbar}>
+            <AppNavBar
+                title={'Menu'}
+                title2={'Help'}
+                icon={"menu"}
+                icon2={"help-circle-outline"}
+                onPress={() => navigation.navigate('Menu')}
+                onPress2={() => Alert.alert(
+                'Camera Screen',
+                `Aim your phone camera at the medicine, and tap the 'Take Picture' button to attempt to identify it.
+                \n The bottom left button can be used to toggle the flash on/off.
+                \n Navigate to the main menu by pressing the top left 'Menu' button.`,
+                )}
+                />
+            </View>
+            <View>
+                <AppNavBar
+                icon={flash ? "flash" : "flash-off"}
+                icon2={"image-plus"}
+                onPress={() => setFlash(flash ? false : true)}
+                />
+                <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading)} />
+            </View>
+        </Screen>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  camera: {
-    flex: 1,
-  },
-  loading: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  navbar: {
-    position: 'absolute', 
-  },
-  noaccess: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
+    container: {
+        flex: 1,
+    },
+    camera: {
+        flex: 1,
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    navbar: {
+        position: 'absolute', 
+    },
+    noaccess: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
 
 export default CameraScreen;
