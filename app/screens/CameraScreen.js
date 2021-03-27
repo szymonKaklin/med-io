@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 
@@ -21,7 +21,8 @@ function capturePill(navigation, cameraRef, setLoading) {
 
         // Promise for posting picture data to server - add method for web
         new Promise((resolve, reject) => {
-            let filename = localUri.split('/').pop(); // Get the filename from the path
+            // Get the filename from the path
+            let filename = localUri.split('/').pop(); 
 
             // Infer the type of the image
             let match = /\.(\w+)$/.exec(filename);
@@ -31,15 +32,28 @@ function capturePill(navigation, cameraRef, setLoading) {
             formData.append('file', { uri: localUri, name: filename, type });
 
             // Post the form data to the prediction server
-            // temporary timeout function to simulate posting
-            //setTimeout((() => resolve(console.log(formData))), 1000);
             fetch("http://192.168.1.171:9999/predict", {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'content-type': 'multipart/form-data',
                 },
-            }).then(response => resolve(response));
+            }).then(response => {
+                resolve(response)
+            }).catch(error => {
+                console.log('Failed to post: ', error)
+                setLoading(false);
+                Alert.alert(
+                    'Failed to Post Image', 
+                    `We couldn't access the server, check your phone's internet connection and try again`,
+                    [
+                        {
+                            text: 'Dismiss',
+                            onPress: () => cameraRef.current.resumePreview()
+                        },
+                    ],
+                )
+            });
 
         }).then(response => {
             response.json().then(result => {        
@@ -55,6 +69,8 @@ function capturePill(navigation, cameraRef, setLoading) {
                 // Navigate to the results page sending the id of the medicien and the image as parameters
                 navigation.navigate('Result', { medicineID, image: localUri });
             })
+        }).catch(error => {
+            console.log('The image was posted, but server response failed', error)
         })
     })
 }
