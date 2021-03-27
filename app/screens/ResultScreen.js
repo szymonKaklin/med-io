@@ -41,7 +41,11 @@ function ResultScreen({ route, navigation }) {
             />
             {foundMedicine ? <ResultItem title={foundMedicine.title} prescription={foundPrescription} image={imageURI}/> : <ResultItem image={imageURI}/>}
             <View style={styles.container}>
-                <AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>
+                {foundMedicine ?
+                    (<AppWideButton color={'primary'} title={foundPrescription ? 'Go to Prescription' : 'Add Prescription'} onPress={() => navigation.goBack()}/>)
+                    :
+                    (<AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>)
+                }
             </View>
         </Screen>
     );
