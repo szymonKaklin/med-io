@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -8,48 +8,27 @@ import defaultStyles from '../config/styles'
 import ResultItem from '../components/ResultItem';
 import AppWideButton from '../components/AppWideButton';
 
-// For an identified prescription pill
-// function ResultScreen(props) {
-//     let add = false;
-//   return (
-//     <Screen style={styles.screen}>
-//         <AppNavBar title={'Back'} title2={'Help'} icon={"chevron-left"} icon2={"help-circle-outline"} iconExtra={'camera'}/>
-//         <ResultItem title={'IBUPROFEN'} subTitle={'Found'} image={require('../assets/sample_result.jpg')}/>
-//         <View style={styles.container}>
-//             <AppWideButton title={'Go to Prescription'}/>
-//             {add && <AppWideButton color={'primaryDark'} title={'Add to prescription'}/>}
-//         </View>
-//     </Screen>
-//   );
-// }
+import MEDICINES from '../config/medicines';
 
-// Identified but not in prescription
-// function ResultScreen(props) {
-//     let add = true;
-//   return (
-//     <Screen style={styles.screen}>
-//         <AppNavBar title={'Back'} title2={'Help'} icon={"chevron-left"} icon2={"help-circle-outline"} iconExtra={'camera'}/>
-//         <ResultItem title={'IBUPROFEN'} subTitle={'Found'} image={require('../assets/sample_result.jpg')}/>
-//         <View style={styles.container}>
-//             {/* <AppWideButton title={'Go to Prescription'}/> */}
-//             {add && <AppWideButton color={'primaryDark'} title={'Add to prescriptions'}/>}
-//         </View>
-//     </Screen>
-//   );
-// }
-
-// Not identified
 function ResultScreen({ route, navigation }) {
 
     // Load the parameters send from the camera screen giving information about the pill from the server and the captured image
     const { medicineID, image: imageURI } = route.params;
     
-    // For when we get a pill we want to add to prescriptions
-    let add = true;
-    
-    // State to store the prescription instructions
-    const [prescriptionInstructions, setPrescriptionInstructions] = useState(null);
+    // Set variable to medicine object that was found/null
+    const [foundMedicine, setFoundMedicine] = useState(null);
 
+    // Set variable to prescription object that was found/null
+    const [foundPrescription, setFoundPrescription] = useState(null);
+
+    // Checking for the identified medicine in medicines.js
+    useEffect(() => {
+        let found = MEDICINES.find(medicine => medicine.id === medicineID );
+    
+        if (found)
+            setFoundMedicine(found)
+    }, [])
+    
     return (
         <Screen style={styles.screen}>
             <AppNavBar
@@ -60,10 +39,9 @@ function ResultScreen({ route, navigation }) {
                 iconExtra={'camera'}
                 onPress={() => navigation.goBack()}
             />
-            <ResultItem title={medicineID} subTitle={'Found'} image={imageURI}/>
+            {foundMedicine ? <ResultItem title={foundMedicine.title} prescription={foundPrescription} image={imageURI}/> : <ResultItem image={imageURI}/>}
             <View style={styles.container}>
-                {/* <AppWideButton title={'Go to Prescription'}/> */}
-                {add && <AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>}
+                <AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>
             </View>
         </Screen>
     );
