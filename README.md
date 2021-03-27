@@ -19,6 +19,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 
 ### Known Issues
 
++ Result screen text renders weirdly for some medicines (long names?) and content text also looks weird at times
 + You can send multiple post requests by pressing the camera button multiple times
 + You can add multiple prescriptions at the same time by pressing the add prescription button too quickly
 + Prescription list does not automatically refresh when a prescription is removed - a manual refresh by pulling down on the list is required
