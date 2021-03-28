@@ -68,6 +68,7 @@ function ResultScreen({ route, navigation }) {
                         color={'primary'}
                         title={foundPrescription ? 'Go to Prescription' : 'Add Prescription'} 
                         onPress={() => {
+                            navigation.goBack();
                             navigation.dispatch({
                                 ...CommonActions.navigate('Menu', {
                                     screen: 'Prescriptions',
