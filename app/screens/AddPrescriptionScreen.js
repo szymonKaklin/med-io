@@ -17,8 +17,11 @@ const validationSchema = Yup.object().shape({
     directions: Yup.string().label("Directions"),
 });
 
-function AddPrescriptionScreen({ navigation }) {
+function AddPrescriptionScreen({ navigation, route }) {
     
+    // Parameter which is passed to intial form values if we are coming from the camera screen having just identifed a pill
+    const identifiedMedicine = route.params
+
     const handleSubmit = async (values) => {
         // have function from cache folder which takes this object
         console.log('adding prescription: ', values);
@@ -55,7 +58,7 @@ function AddPrescriptionScreen({ navigation }) {
                         initialValues={{
                             id: Date.now(),
                             date: `${moment().format('D/M/Y')}`,
-                            medicine: ``,
+                            medicine: identifiedMedicine ? `${identifiedMedicine}` : ``,
                             directions: ``,
                             image: ``,
                         }}

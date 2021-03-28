@@ -15,6 +15,7 @@ const NestedPrescriptions = () => (
     <MenuStack.Navigator headerMode={'none'} screenOptions={{gestureEnabled: false}}>
         <MenuStack.Screen name="Prescriptions" component={PrescriptionsScreen} />
         <MenuStack.Screen name="PrescriptionDetails" component={PrescriptionDetailsScreen} />
+        <MenuStack.Screen name="AddPrescription" component={AddPrescriptionScreen} />
     </MenuStack.Navigator>
 )
 
@@ -24,7 +25,6 @@ const MenuNavigator = () => (
         <MenuStack.Screen name="Camera" component={CameraScreen}/>
         <MenuStack.Screen name="Login" component={LoginScreen}/>
         <MenuStack.Screen name="Prescriptions" component={NestedPrescriptions} />
-        <MenuStack.Screen name="AddPrescription" component={AddPrescriptionScreen} />
     </MenuStack.Navigator>
 );
 

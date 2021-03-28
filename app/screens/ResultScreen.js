@@ -69,16 +69,12 @@ function ResultScreen({ route, navigation }) {
                         title={foundPrescription ? 'Go to Prescription' : 'Add Prescription'} 
                         onPress={() => {
                             navigation.dispatch({
-                                // ...CommonActions.reset({
-                                //     index: 1,
-                                //     routes: [{name: 'Camera'}]
-                                // }),
                                 ...CommonActions.navigate('Menu', {
                                     screen: 'Prescriptions',
                                     initial: false,
                                     params: {
-                                        screen: 'PrescriptionDetails',
-                                        params: foundPrescription,
+                                        screen: foundPrescription ? 'PrescriptionDetails' : 'AddPrescription',
+                                        params: foundPrescription ? foundPrescription : foundMedicine.title,
                                         initial: false,
                                     }
                                 }),
