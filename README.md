@@ -9,7 +9,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 + ~~Prescription editing/adding~~
 	+ ~~Add optional image to prescriptions~~
 	+ Specific prescription updating
-+ Result page rendering conditional on result of post request
++ ~~Result page rendering conditional on result of post request~~
 + User account creation
 	+ Firebase user authentication
 + ~~Back-end~~
