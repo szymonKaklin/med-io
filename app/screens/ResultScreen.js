@@ -11,6 +11,7 @@ import AppWideButton from '../components/AppWideButton';
 import cache from '../cache/cache';
 
 import MEDICINES from '../config/medicines';
+import { Alert } from 'react-native';
 
 function ResultScreen({ route, navigation }) {
 
@@ -60,6 +61,11 @@ function ResultScreen({ route, navigation }) {
                 icon2={"help-circle-outline"}
                 iconExtra={'camera'}
                 onPress={() => navigation.goBack()}
+                onPress2={() => Alert.alert(
+                    'Result Screen',
+                    `This screen shows you the result of the attempted medicine identification.
+                    \nDISCLAIMER: THE RESULT OF THE IDENTIFICATION MAY NOT BE ACCURATE.`
+                )}
             />
             {foundMedicine ? <ResultItem title={foundMedicine.title} prescription={foundPrescription} image={imageURI}/> : <ResultItem image={imageURI}/>}
             <View style={styles.container}>
