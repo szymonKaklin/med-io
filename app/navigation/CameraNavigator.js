@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import CameraScreen from '../screens/CameraScreen';
 import ResultScreen from '../screens/ResultScreen';
+import PrescriptionDetailsScreen from '../screens/PrescriptionDetailsScreen'
 
 import MenuNavigator from './MenuNavigator';
 

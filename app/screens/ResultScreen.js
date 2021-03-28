@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { CommonActions, StackActions } from "@react-navigation/native";
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -63,7 +64,27 @@ function ResultScreen({ route, navigation }) {
             {foundMedicine ? <ResultItem title={foundMedicine.title} prescription={foundPrescription} image={imageURI}/> : <ResultItem image={imageURI}/>}
             <View style={styles.container}>
                 {foundMedicine ?
-                    (<AppWideButton color={'primary'} title={foundPrescription ? 'Go to Prescription' : 'Add Prescription'} onPress={() => navigation.goBack()}/>)
+                    (<AppWideButton
+                        color={'primary'}
+                        title={foundPrescription ? 'Go to Prescription' : 'Add Prescription'} 
+                        onPress={() => {
+                            navigation.dispatch({
+                                // ...CommonActions.reset({
+                                //     index: 1,
+                                //     routes: [{name: 'Camera'}]
+                                // }),
+                                ...CommonActions.navigate('Menu', {
+                                    screen: 'Prescriptions',
+                                    initial: false,
+                                    params: {
+                                        screen: 'PrescriptionDetails',
+                                        params: foundPrescription,
+                                        initial: false,
+                                    }
+                                }),
+                            })
+                        }}
+                    />)
                     :
                     (<AppWideButton color={'primaryDark'} title={'Retry'} onPress={() => navigation.goBack()}/>)
                 }
