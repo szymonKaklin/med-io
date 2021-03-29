@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView} from 'react-native';
 import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
@@ -43,7 +43,8 @@ function PrescriptionDetailsScreen({ navigation, route }) {
     }
 
     return (
-        <Screen>
+        <Screen style={styles.container}>
+            <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior="position">
             <AppNavBar
                 title={'Back'}
                 title2={'Help'}
@@ -57,50 +58,54 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     \nThis is your ${prescription.medicine} prescription.`,
                 )}
             />
-            <ScrollView scrollEnabled={true}>
-                <View style={{padding: 10, marginBottom: 120}}>
-                    <AppForm
-                        initialValues={{
-                            id: prescription.id,
-                            date: `${prescription.date}`,
-                            medicine: `${prescription.medicine}`,
-                            directions: `${prescription.directions}`,
-                            image: prescription.image,
-                        }}
-                        onSubmit={values => handleSubmit(values)}
-                        validationSchema={validationSchema}
-                    >
-                        <AppFormImagePicker
-                            name="image"
-                            defaultUri={prescription.image}
-                        />
-                        <AppText style={styles.text}>Medicine Name</AppText>
-                        <AppFormPicker
-                            icon={"pill"}
-                            items={MEDICINES}
-                            name="medicine"
-                            numberOfColumns={1}
-                            PickerItemComponent={PickerItem}
-                            placeholder="Medicine Name"
-                        />
-                        <AppText style={styles.text}>Directions</AppText>
-                        <AppFormField
-                            maxLength={255}
-                            multiline
-                            name="directions"
-                            numberOfLines={5}
-                            defaultValue={`${prescription.directions}`}
-                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
-                        />
-                        <SubmitButton title="Save Changes" />
-                    </AppForm>
-                </View>
-            </ScrollView>
+                <ScrollView scrollEnabled={true}>
+                    <View style={{padding: 10, marginBottom: 80}}>
+                        <AppForm
+                            initialValues={{
+                                id: prescription.id,
+                                date: `${prescription.date}`,
+                                medicine: `${prescription.medicine}`,
+                                directions: `${prescription.directions}`,
+                                image: prescription.image,
+                            }}
+                            onSubmit={values => handleSubmit(values)}
+                            validationSchema={validationSchema}
+                        >
+                            <AppFormImagePicker
+                                name="image"
+                                defaultUri={prescription.image}
+                            />
+                            <AppText style={styles.text}>Medicine Name</AppText>
+                            <AppFormPicker
+                                icon={"pill"}
+                                items={MEDICINES}
+                                name="medicine"
+                                numberOfColumns={1}
+                                PickerItemComponent={PickerItem}
+                                placeholder="Medicine Name"
+                            />
+                            <AppText style={styles.text}>Directions</AppText>
+                            <AppFormField
+                                maxLength={255}
+                                multiline
+                                name="directions"
+                                numberOfLines={5}
+                                defaultValue={`${prescription.directions}`}
+                                placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
+                            />
+                            <SubmitButton title="Save Changes" />
+                        </AppForm>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </Screen>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     picker: {
         backgroundColor: 'white',
     },
