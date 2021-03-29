@@ -5,11 +5,12 @@ import moment from 'moment';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
-import ImageInput from '../components/ImageInput';
+import AppText from '../components/AppText';
 import { AppForm, AppFormField, AppFormPicker, SubmitButton, AppFormImagePicker } from '../components/forms';
 import PickerItem from '../components/PickerItem';
 import cache from '../cache/cache';
 
+import colors from '../config/colors';
 import MEDICINES from '../config/medicines.js';
 
 const validationSchema = Yup.object().shape({
@@ -40,20 +41,20 @@ function AddPrescriptionScreen({ navigation, route }) {
     
     return ( 
         <Screen>
-            <ScrollView scrollEnabled={false}>
-                <AppNavBar
-                    title={'Back'}
-                    title2={'Help'}
-                    icon={"chevron-left"}
-                    icon2={"help-circle-outline"}
-                    iconExtra={'prescription'}
-                    onPress={() => navigation.goBack()}
-                    onPress2={() => Alert.alert(
-                        'New Prescription',
-                        `This screen allows you to create a new prescription.`,
-                    )}
-                />
-                <View style={{padding: 10}}>
+            <AppNavBar
+                title={'Back'}
+                title2={'Help'}
+                icon={"chevron-left"}
+                icon2={"help-circle-outline"}
+                iconExtra={'prescription'}
+                onPress={() => navigation.goBack()}
+                onPress2={() => Alert.alert(
+                    'New Prescription',
+                    `This screen allows you to create a new prescription.`,
+                )}
+            />
+            <ScrollView scrollEnabled={true}>
+                <View style={{padding: 10, marginBottom: 120}}>
                     <AppForm
                         initialValues={{
                             id: Date.now(),
@@ -66,6 +67,7 @@ function AddPrescriptionScreen({ navigation, route }) {
                         validationSchema={validationSchema}
                     >
                         <AppFormImagePicker name="image" />
+                        <AppText style={styles.text}>Medicine Name</AppText>
                         <AppFormPicker
                             icon={"pill"}
                             items={MEDICINES}
@@ -74,12 +76,13 @@ function AddPrescriptionScreen({ navigation, route }) {
                             PickerItemComponent={PickerItem}
                             placeholder="Select Medicine"
                         />
+                        <AppText style={styles.text}>Directions</AppText>
                         <AppFormField
                             maxLength={255}
                             multiline
                             name="directions"
                             numberOfLines={5}
-                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"`}
+                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
                         />
                         <SubmitButton title="Add New Prescription" />
                     </AppForm>
@@ -90,11 +93,15 @@ function AddPrescriptionScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
     picker: {
         backgroundColor: 'white',
+    },
+    text: {
+        marginTop: 5,
+        marginLeft: 2,
+        fontSize: 25,
+        fontWeight: '800',
+        color: colors.primary,
     },
     title: {
         fontSize: 30,

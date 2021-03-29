@@ -11,6 +11,7 @@ import PickerItem from '../components/PickerItem';
 import cache from '../cache/cache';
 
 import MEDICINES from '../config/medicines.js';
+import colors from '../config/colors';
 
 const validationSchema = Yup.object().shape({
     medicine: Yup.string().required().nullable().label("Medicine"),
@@ -43,21 +44,21 @@ function PrescriptionDetailsScreen({ navigation, route }) {
 
     return (
         <Screen>
-            <ScrollView scrollEnabled={false}>
-                <AppNavBar
-                    title={'Back'}
-                    title2={'Help'}
-                    icon={"chevron-left"}
-                    icon2={"help-circle-outline"}
-                    iconExtra={'prescription'}
-                    onPress={() => navigation.goBack()}
-                    onPress2={() => Alert.alert(
-                        'Prescription Details',
-                        `This screen allows you to view or edit a specific prescription.
-                        \nThis is your ${prescription.medicine} prescription.`,
-                    )}
-                />
-                <View style={{padding: 10}}>
+            <AppNavBar
+                title={'Back'}
+                title2={'Help'}
+                icon={"chevron-left"}
+                icon2={"help-circle-outline"}
+                iconExtra={'prescription'}
+                onPress={() => navigation.goBack()}
+                onPress2={() => Alert.alert(
+                    'Prescription Details',
+                    `This screen allows you to view or edit a specific prescription.
+                    \nThis is your ${prescription.medicine} prescription.`,
+                )}
+            />
+            <ScrollView scrollEnabled={true}>
+                <View style={{padding: 10, marginBottom: 120}}>
                     <AppForm
                         initialValues={{
                             id: prescription.id,
@@ -73,6 +74,7 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                             name="image"
                             defaultUri={prescription.image}
                         />
+                        <AppText style={styles.text}>Medicine Name</AppText>
                         <AppFormPicker
                             icon={"pill"}
                             items={MEDICINES}
@@ -81,13 +83,14 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                             PickerItemComponent={PickerItem}
                             placeholder="Medicine Name"
                         />
+                        <AppText style={styles.text}>Directions</AppText>
                         <AppFormField
                             maxLength={255}
                             multiline
                             name="directions"
                             numberOfLines={5}
                             defaultValue={`${prescription.directions}`}
-                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"`}
+                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
                         />
                         <SubmitButton title="Save Changes" />
                     </AppForm>
@@ -98,11 +101,15 @@ function PrescriptionDetailsScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
     picker: {
         backgroundColor: 'white',
+    },
+    text: {
+        marginTop: 5,
+        marginLeft: 2,
+        fontSize: 25,
+        fontWeight: '800',
+        color: colors.primary,
     },
     title: {
         fontSize: 30,
