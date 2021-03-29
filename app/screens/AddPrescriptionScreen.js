@@ -42,53 +42,53 @@ function AddPrescriptionScreen({ navigation, route }) {
     return ( 
         <Screen style={styles.container}>
             <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior="position">
-            <AppNavBar
-                title={'Back'}
-                title2={'Help'}
-                icon={"chevron-left"}
-                icon2={"help-circle-outline"}
-                iconExtra={'prescription'}
-                onPress={() => navigation.goBack()}
-                onPress2={() => Alert.alert(
-                    'New Prescription',
-                    `This screen allows you to create a new prescription.`,
-                )}
-            />
-            <ScrollView scrollEnabled={true}>
-                <View style={{padding: 10, marginBottom: 80}}>
-                    <AppForm
-                        initialValues={{
-                            id: Date.now(),
-                            date: `${moment().format('D/M/Y')}`,
-                            medicine: identifiedMedicine ? `${identifiedMedicine}` : ``,
-                            directions: ``,
-                            image: ``,
-                        }}
-                        onSubmit={values => handleSubmit(values)}
-                        validationSchema={validationSchema}
-                    >
-                        <AppFormImagePicker name="image" />
-                        <AppText style={styles.text}>Medicine Name</AppText>
-                        <AppFormPicker
-                            icon={"pill"}
-                            items={MEDICINES}
-                            name="medicine"
-                            numberOfColumns={1}
-                            PickerItemComponent={PickerItem}
-                            placeholder="Select Medicine"
-                        />
-                        <AppText style={styles.text}>Directions</AppText>
-                        <AppFormField
-                            maxLength={255}
-                            multiline
-                            name="directions"
-                            numberOfLines={5}
-                            placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
-                        />
-                        <SubmitButton title="Add New Prescription" />
-                    </AppForm>
-                </View>
-            </ScrollView>
+                <AppNavBar
+                    title={'Back'}
+                    title2={'Help'}
+                    icon={"chevron-left"}
+                    icon2={"help-circle-outline"}
+                    iconExtra={'prescription'}
+                    onPress={() => navigation.goBack()}
+                    onPress2={() => Alert.alert(
+                        'New Prescription',
+                        `This screen allows you to create a new prescription.`,
+                    )}
+                />
+                <ScrollView scrollEnabled={true}>
+                    <View style={{padding: 10, marginBottom: 80}}>
+                        <AppForm
+                            initialValues={{
+                                id: Date.now(),
+                                date: `${moment().format('D/M/Y')}`,
+                                medicine: identifiedMedicine ? `${identifiedMedicine}` : ``,
+                                directions: ``,
+                                image: ``,
+                            }}
+                            onSubmit={values => handleSubmit(values)}
+                            validationSchema={validationSchema}
+                        >
+                            <AppFormImagePicker name="image" />
+                            <AppText style={styles.text}>Medicine Name</AppText>
+                            <AppFormPicker
+                                icon={"pill"}
+                                items={MEDICINES}
+                                name="medicine"
+                                numberOfColumns={1}
+                                PickerItemComponent={PickerItem}
+                                placeholder="Select Medicine"
+                            />
+                            <AppText style={styles.text}>Directions</AppText>
+                            <AppFormField
+                                maxLength={255}
+                                multiline
+                                name="directions"
+                                numberOfLines={5}
+                                placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
+                            />
+                            <SubmitButton title="Add New Prescription" />
+                        </AppForm>
+                    </View>
+                </ScrollView>
             </KeyboardAvoidingView>
         </Screen>
     );

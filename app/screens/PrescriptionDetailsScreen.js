@@ -45,19 +45,19 @@ function PrescriptionDetailsScreen({ navigation, route }) {
     return (
         <Screen style={styles.container}>
             <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior="position">
-            <AppNavBar
-                title={'Back'}
-                title2={'Help'}
-                icon={"chevron-left"}
-                icon2={"help-circle-outline"}
-                iconExtra={'prescription'}
-                onPress={() => navigation.goBack()}
-                onPress2={() => Alert.alert(
-                    'Prescription Details',
-                    `This screen allows you to view or edit a specific prescription.
-                    \nThis is your ${prescription.medicine} prescription.`,
-                )}
-            />
+                <AppNavBar
+                    title={'Back'}
+                    title2={'Help'}
+                    icon={"chevron-left"}
+                    icon2={"help-circle-outline"}
+                    iconExtra={'prescription'}
+                    onPress={() => navigation.goBack()}
+                    onPress2={() => Alert.alert(
+                        'Prescription Details',
+                        `This screen allows you to view or edit a specific prescription.
+                        \nThis is your ${prescription.medicine} prescription.`,
+                    )}
+                />
                 <ScrollView scrollEnabled={true}>
                     <View style={{padding: 10, marginBottom: 80}}>
                         <AppForm
