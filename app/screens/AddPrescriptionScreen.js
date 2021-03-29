@@ -34,7 +34,7 @@ function AddPrescriptionScreen({ navigation, route }) {
             cache.store('PrescriptionList', [...storedList, values]);
         }
 
-        // small timeout before goin back to the prescriptions so list can refresh unseen
+        // small timeout before going back to the prescriptions so list can refresh unseen
         setTimeout(() => navigation.goBack(), 200);
     }
     

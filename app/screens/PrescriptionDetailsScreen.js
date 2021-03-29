@@ -6,8 +6,9 @@ import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import AppText from '../components/AppText';
 import ImageInput from '../components/ImageInput';
-import { AppForm, AppFormField, AppFormPicker, SubmitButton } from '../components/forms';
+import { AppForm, AppFormField, AppFormPicker, SubmitButton, AppFormImagePicker } from '../components/forms';
 import PickerItem from '../components/PickerItem';
+import cache from '../cache/cache';
 
 import MEDICINES from '../config/medicines.js';
 
@@ -18,6 +19,27 @@ const validationSchema = Yup.object().shape({
 
 function PrescriptionDetailsScreen({ navigation, route }) {
     const prescription = route.params
+
+    const handleSubmit = async (values) => {
+        // have function from cache folder which takes this object
+        console.log('adding prescription: ', values);
+        let storedList = await cache.get('PrescriptionList');
+        
+        // There should always be a prescriptionList stored in async storage when we are on this screen
+        // but just in case we handle the case when there is none
+        if (!storedList) {
+            console.log('No prescriptions')
+        }
+        else {
+            const idx = storedList.findIndex(prescription => prescription.id === values.id)
+            storedList[idx] = values
+
+            cache.store('PrescriptionList', storedList);
+        }
+
+        // small timeout before going back to the prescriptions so list can refresh unseen
+        setTimeout(() => navigation.goBack(), 200);
+    }
 
     return (
         <Screen>
@@ -36,18 +58,21 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     )}
                 />
                 <View style={{padding: 10}}>
-                <ImageInput />
                     <AppForm
                         initialValues={{
-                            id: `${prescription.id}`,
+                            id: prescription.id,
                             date: `${prescription.date}`,
                             medicine: `${prescription.medicine}`,
                             directions: `${prescription.directions}`,
                             image: prescription.image,
                         }}
-                        onSubmit={values => console.log(values)}
+                        onSubmit={values => handleSubmit(values)}
                         validationSchema={validationSchema}
                     >
+                        <AppFormImagePicker
+                            name="image"
+                            defaultUri={prescription.image}
+                        />
                         <AppFormPicker
                             icon={"pill"}
                             items={MEDICINES}

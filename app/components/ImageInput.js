@@ -6,9 +6,15 @@ import * as ImagePicker from 'expo-image-picker';
 import colors from '../config/colors';
 import AppText from './AppText';
 
-function ImageInput({ name, onAddImage }) {
+function ImageInput({ name, defaultUri, onAddImage }) {
     const [imageUri, onChangeImage] = useState();
-    
+
+    useEffect(() => {
+        // if we have an image for this pescription, we load it into ImageInput here
+        if (defaultUri)
+            onChangeImage(defaultUri);
+    }, [])
+
     const handlePress = () => {
         if (!imageUri) selectImage();
         else Alert.alert('Delete', 'Are you sure you want to delete this image?', [
