@@ -13,6 +13,7 @@ import defaultStyles from '../config/styles';
 // Function for capturing image and sending to server
 function capturePill(navigation, cameraRef, setLoading) {
     console.log('Pressed Cam Button');
+    
     cameraRef.current.takePictureAsync().then(picture => {
         setLoading(true); // Set loading spinner in motion
         cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
@@ -72,6 +73,8 @@ function capturePill(navigation, cameraRef, setLoading) {
         }).catch(error => {
             console.log('The image was posted, but server response failed:', error)
         })
+    }).catch(error => {
+        console.log('Take PictureAsync error:', error)
     })
 }
 

@@ -18,7 +18,14 @@ Med.io is being built as part of an MEng university project. The app will allow 
 	+ Set up google cloud instance
 	+ Update all this using this years model
 
-### Known Issues
+### Bugs
+
++ Android
+	+ Flash doesn't turn on
+	+ Prescription Add screen doesnt render the medicine name after choosing a medicine from the drop down picker
+	+ Prescription directions box/submit button looks weird in the scroll view
+
+### General Issues
 
 + Result screen text renders weirdly for some medicines (long names?) and content text also looks weird at times
 + You can send multiple post requests by pressing the camera button multiple times
