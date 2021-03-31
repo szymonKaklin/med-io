@@ -30,7 +30,7 @@ function ResultItem({title, image, prescription}) {
                 </View>
                 <View style={styles.textContent}>
                     {prescription ? 
-                        (<AppText style={styles.text}>{prescription.directions}</AppText>) 
+                        (<AppText style={{fontSize: 25, textAlign: 'left'}}>{prescription.directions}</AppText>) 
                         : 
                         (<AppText style={styles.text}>This medicine has been identified, but you don't have a prescription for it.</AppText>)
                     }

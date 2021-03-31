@@ -33,7 +33,11 @@ function capturePill(navigation, cameraRef, setLoading) {
             formData.append('file', { uri: localUri, name: filename, type });
 
             // Post the form data to the prediction server
-            fetch("http://192.168.1.171:9999/predict", {
+            // Gcloud run:
+            // https://server-3lx5htvqrq-ew.a.run.app/predict
+            // Local: 
+            // "http://192.168.1.171:9999/predict"
+            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
                 method: 'POST',
                 body: formData,
                 headers: {
