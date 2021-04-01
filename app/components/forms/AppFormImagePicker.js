@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import ErrorMessage from './ErrorMessage';
 import ImageInput from '../ImageInput';
 
-function AppFormImagePicker({ name, defaultUri }) {
+function AppFormImagePicker({ name, defaultUri, smallImage = false }) {
     const { errors, setFieldValue, touched, values } = useFormikContext();
     
     var imageUri = values[name];
@@ -25,6 +25,7 @@ function AppFormImagePicker({ name, defaultUri }) {
             imageUri={imageUri}
             onAddImage={handleAdd}
             defaultUri={defaultUri}
+            smallImage={smallImage}
         />
         <ErrorMessage error={errors[name]} visible={touched[name]} />
     </>

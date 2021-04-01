@@ -159,6 +159,7 @@ function CameraScreen({ navigation }) {
                 icon={flash ? "flash" : "flash-off"}
                 icon2={"image-plus"}
                 onPress={() => setFlash(flash ? false : true)}
+                onPress2={() => navigation.navigate('Image')}
                 />
                 <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading)} />
             </View>

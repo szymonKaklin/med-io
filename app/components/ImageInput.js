@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import colors from '../config/colors';
 import AppText from './AppText';
 
-function ImageInput({ name, defaultUri, onAddImage }) {
+function ImageInput({ name, defaultUri, onAddImage, smallImage }) {
     const [imageUri, onChangeImage] = useState();
 
     useEffect(() => {
@@ -47,10 +47,10 @@ function ImageInput({ name, defaultUri, onAddImage }) {
   
     return (
       <TouchableWithoutFeedback onPress={handlePress}>
-        <View style={styles.container}>
+        <View style={smallImage ? styles.smallContainer : styles.container}>
             {!imageUri &&
             <>
-              <AppText>Add Image</AppText>
+              {!smallImage && <AppText>Add Image</AppText>}
               <MaterialCommunityIcons color={colors.medium} name="image-plus" size={40} />
             </>
             }
@@ -61,19 +61,28 @@ function ImageInput({ name, defaultUri, onAddImage }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-      alignItems: 'center',
-      backgroundColor: colors.white,
-      borderRadius: 15,
-      height: 120,
-      justifyContent: 'center',
-      overflow: "hidden",
-      width: 120,
-  },
-  image: {
-      height: '100%',
-      width: '100%',
-  }
+    container: {
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        borderRadius: 15,
+        height: 120,
+        justifyContent: 'center',
+        overflow: "hidden",
+        width: 120,
+    },
+    image: {
+        height: '100%',
+        width: '100%',
+    },
+    smallContainer: {
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        borderRadius: 15,
+        height: 80,
+        justifyContent: 'center',
+        overflow: "hidden",
+        width: 80,
+    }
 });
 
 export default ImageInput;
