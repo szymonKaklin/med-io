@@ -9,7 +9,7 @@ import PickerItem from './PickerItem';
 import AppText from './AppText';
 import Screen from './Screen';
 import ListItemSeperator from './ListItemSeperator';
-import { ScrollView } from 'react-native';
+import { Text } from 'react-native';
 
 function AppPicker({
     icon,
@@ -29,7 +29,8 @@ function AppPicker({
                 <View style={[styles.container, { width }]}>
                     {icon && <MaterialCommunityIcons name={icon} size={20} color={colors.medium} style={styles.icon} />}
                     { selectedItem ? (
-                        <AppText style={styles.text}>{selectedItem}</AppText>
+                        // Text is used here instead of AppText because of a weird Android Bug which wouldnt render AppText
+                        <Text style={styles.text}>{selectedItem}</Text>
                     ) : (
                         <AppText style={styles.placeholder}>{placeholder}</AppText>
                     )}
@@ -96,6 +97,10 @@ const styles = StyleSheet.create({
     },
     text: {
         flex: 1,
+        color: colors.dark,
+        fontSize: 18,
+        textAlignVertical: 'top',
+        fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir"
     }
 });
 

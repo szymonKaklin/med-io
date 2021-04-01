@@ -28,6 +28,5 @@ export default function App() {
     <NavigationContainer>
       <CameraNavigator />
     </NavigationContainer>
-    // <ImageInput />
   );
 };

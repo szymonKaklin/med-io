@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView} from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
@@ -44,7 +44,7 @@ function PrescriptionDetailsScreen({ navigation, route }) {
 
     return (
         <Screen style={styles.container}>
-            <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior="position">
+            <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior={Platform.OS === 'ios' ? "position" : "height"}>
                 <AppNavBar
                     title={'Back'}
                     title2={'Help'}
@@ -59,7 +59,7 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     )}
                 />
                 <ScrollView scrollEnabled={true}>
-                    <View style={{padding: 10, marginBottom: 80}}>
+                    <View style={{flex: 1, padding: 10, marginBottom: 80}}>
                         <AppForm
                             initialValues={{
                                 id: prescription.id,
