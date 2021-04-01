@@ -11,12 +11,13 @@ Med.io is being built as part of an MEng university project. The app will allow 
 	+ ~~Specific prescription updating~~
 + ~~Result page rendering conditional on result of post request~~
 	+ Support for multiple prescriptions of same medicine
-+ User account creation
-	+ Firebase user authentication
 + ~~Back-end~~
 	+ ~~Be able to post image to model on local server and obtain result~~
 	+ ~~Set up google cloud instance~~
+	+ ~~Can post 1 or 7 images to server~~
 	+ Update all this using this years model
+	
+	+ User account creation
 
 ### Bugs
 

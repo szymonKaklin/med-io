@@ -36,7 +36,8 @@ const handleSubmit = async (values, navigation, setLoading) => {
             let formData = new FormData();
             formData.append('file', { uri: localUri, name: filename, type });
 
-            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
+            // https://server-3lx5htvqrq-ew.a.run.app/predict
+            fetch("http://192.168.1.171:9999/predict", {
             method: 'POST',
             body: formData,
             headers: {
@@ -52,6 +53,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
                     [
                         {
                             text: 'Dismiss',
+                            onPress: setLoading(false)
                         },
                     ],
                 )
@@ -60,6 +62,52 @@ const handleSubmit = async (values, navigation, setLoading) => {
         else if (numberOfImages === 7) {
             setLoading(true)
             console.log('post 7')
+            let formData = new FormData();
+
+            for (const [key, value] of Object.entries(values)) {
+                let filename = localUri.split('/').pop(); 
+
+                let match = /\.(\w+)$/.exec(filename);
+                let type = match ? `image/${match[1]}` : `image`;
+
+                formData.append('file', { uri: localUri, name: filename, type });
+            }
+            
+            fetch("http://192.168.1.171:9999/predict", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+            }).then(response => {
+                resolve(response)
+            }).catch(error => {
+                console.log('Failed to post images to server: ', error)
+                Alert.alert(
+                    'Failed to Post Image', 
+                    `We couldn't access the server, check your phone's internet connection and try again`,
+                    [
+                        {
+                            text: 'Dismiss',
+                            onPress: setLoading(false)
+                        },
+                    ],
+                )
+            })
+        }
+        else {
+            Alert.alert(
+                'Invalid Number of Images', 
+                `Select 1 image to use the standard model for identificaiton of RGB images.
+                \nOR
+                \nSelect 7 images to use the spectral model.`,
+                [
+                    {
+                        text: 'Dismiss',
+                        onPress: setLoading(false)
+                    },
+                ],
+            )
         }
 
     }).then(response => {
