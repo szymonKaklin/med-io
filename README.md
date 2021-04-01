@@ -22,7 +22,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 
 + Android
 	+ Flash doesn't turn on
-	+ Prescription Add screen doesnt render the medicine name after choosing a medicine from the drop down picker
+	+ ~~Prescription Add screen doesnt render the medicine name after choosing a medicine from the drop down picker~~
 	+ ~~Prescription directions box/submit button looks weird in the scroll view~~
 
 ### General Issues
