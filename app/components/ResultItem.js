@@ -62,11 +62,9 @@ const styles = StyleSheet.create({
         backgroundColor: defaultStyles.colors.primaryLight,
     },
     containerGreen: {
-        height: 270,
         backgroundColor: defaultStyles.colors.correctGreen,
     },
     containerYellow: {
-        height: 270,
         backgroundColor: defaultStyles.colors.maybeYellow,
     },
     icon: {
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold", 
     },
     textContent: {
+        backgroundColor: defaultStyles.colors.lightGray,
         padding: 5,
     },
     text: {
