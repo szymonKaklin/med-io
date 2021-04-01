@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 import moment from 'moment';
 
@@ -41,7 +41,7 @@ function AddPrescriptionScreen({ navigation, route }) {
     
     return ( 
         <Screen style={styles.container}>
-            <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior="position">
+            <KeyboardAvoidingView style={{flex: 1, flexGrow: 1}} behavior={Platform.OS === 'ios' ? "position" : "height"}>
                 <AppNavBar
                     title={'Back'}
                     title2={'Help'}
@@ -55,7 +55,7 @@ function AddPrescriptionScreen({ navigation, route }) {
                     )}
                 />
                 <ScrollView scrollEnabled={true}>
-                    <View style={{padding: 10, marginBottom: 80}}>
+                    <View style={{flex: 1, padding: 10, marginBottom: 80}}>
                         <AppForm
                             initialValues={{
                                 id: Date.now(),
@@ -85,7 +85,7 @@ function AddPrescriptionScreen({ navigation, route }) {
                                 numberOfLines={5}
                                 placeholder={`Directions for Use\nEg. "Take one pill 3 times a day"\n`}
                             />
-                            <SubmitButton title="Add New Prescription" />
+                            <SubmitButton title="Add New Prescription"/>
                         </AppForm>
                     </View>
                 </ScrollView>

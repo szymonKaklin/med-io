@@ -15,7 +15,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 	+ Firebase user authentication
 + ~~Back-end~~
 	+ ~~Be able to post image to model on local server and obtain result~~
-	+ Set up google cloud instance
+	+ ~~Set up google cloud instance~~
 	+ Update all this using this years model
 
 ### Bugs
@@ -23,7 +23,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 + Android
 	+ Flash doesn't turn on
 	+ Prescription Add screen doesnt render the medicine name after choosing a medicine from the drop down picker
-	+ Prescription directions box/submit button looks weird in the scroll view
+	+ ~~Prescription directions box/submit button looks weird in the scroll view~~
 
 ### General Issues
 
