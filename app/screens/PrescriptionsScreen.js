@@ -46,10 +46,10 @@ function PrescriptionsScreen({ navigation }) {
                 onPress2={() => Alert.alert(
                     'My Prescriptions',
                     `This screen allows you to view, edit, and add prescriptions.
-                    \n Tap the 'Add New Prescription' button at the bottom of the screen to add a new prescription.
-                    \n Tap a specific prescription to edit it.
-                    \n Tap the red trash icon in the corner of a prescription to remove it.
-                    \n Tap the top left 'Back' button to return to the main menu.`,
+                    \nTap the 'Add New Prescription' button at the bottom of the screen to add a new prescription.
+                    \nTap a specific prescription to edit it.
+                    \nTap the red trash icon in the corner of a prescription to remove it.
+                    \nTap the top left 'Back' button to return to the main menu.`,
                     )}
             />
             <View style={styles.list}>

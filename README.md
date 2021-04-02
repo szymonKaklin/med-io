@@ -14,7 +14,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 + ~~Back-end~~
 	+ ~~Be able to post image to model on local server and obtain result~~
 	+ ~~Set up google cloud instance~~
-	+ ~~Can post 1 or 7 images to server~~
+	+ ~~Can post 1 or 9 images to server~~
 	+ Update all this using this years model
 	
 	+ User account creation

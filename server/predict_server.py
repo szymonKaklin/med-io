@@ -12,7 +12,7 @@ CORS(app) ## Set the cross origin header so that api can be called from the brow
 def predict():
     number_of_images = len(request.files.getlist('file'))
     
-    if number_of_images == 7:
+    if number_of_images == 9:
         # Pseudocode (TO_DO):
         # Loop through images
             # Read each image into bytes, and append to an array

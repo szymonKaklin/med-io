@@ -59,9 +59,9 @@ const handleSubmit = async (values, navigation, setLoading) => {
                 )
             })
         }
-        else if (numberOfImages === 7) {
+        else if (numberOfImages === 9) {
             setLoading(true)
-            console.log('post 7')
+            console.log('post 9')
             let formData = new FormData();
 
             for (const [key, value] of Object.entries(values)) {
@@ -100,7 +100,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
                 'Invalid Number of Images', 
                 `Select 1 image to use the standard model for identificaiton of RGB images.
                 \nOR
-                \nSelect 7 images to use the spectral model.`,
+                \nSelect 9 images to use the spectral model.`,
                 [
                     {
                         text: 'Dismiss',
@@ -148,7 +148,7 @@ function ImageLibraryScreen({ navigation }) {
                 onPress2={() => Alert.alert(
                     'Image Selection',
                     `This screen allows you to identify a pill using an image from you phone's image library.
-                    \nAlternatively, you can select 7 images to use our spectral imaging model.`
+                    \nAlternatively, you can select 9 images to use our spectral imaging model.`
                 )}
             />
             {loading && 
@@ -157,7 +157,7 @@ function ImageLibraryScreen({ navigation }) {
             </View>}
             {!loading && <ScrollView scrollEnabled={true}>
                 <View style={{flex: 1, padding: 10}}>
-                    <AppText style={styles.text}>Select 1 or 7 Image(s)</AppText>
+                    <AppText style={styles.text}>Select 1 or 9 Image(s)</AppText>
                     <AppForm
                         initialValues={{
                             image1: ``,
@@ -191,6 +191,12 @@ function ImageLibraryScreen({ navigation }) {
                             </View>
                             <View style={{padding: 4}}>
                                 <AppFormImagePicker name="image7" smallImage={true}/>
+                            </View>
+                            <View style={{padding: 4}}>
+                                <AppFormImagePicker name="image8" smallImage={true}/>
+                            </View>
+                            <View style={{padding: 4}}>
+                                <AppFormImagePicker name="image9" smallImage={true}/>
                             </View>
                         </View>
                         <SubmitButton title="Post Images To Server"/>
