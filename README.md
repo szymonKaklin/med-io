@@ -17,10 +17,11 @@ Med.io is being built as part of an MEng university project. The app will allow 
   - ~~Can post 1 or 9 images to server~~
   - Update all this using this years model
 - ~~Firebase~~
-  - ~~User account creation~~ + Handle errors, display messages
-    - User login
-    - User sign-out
-    - Firestore
+  - ~~User account creation~~
+    - Handle errors, display messages
+  - User login
+  - User sign-out
+  - Firestore
 
 ### Bugs
 
