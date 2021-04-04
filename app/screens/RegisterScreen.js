@@ -6,15 +6,21 @@ import defaultStyles from '../config/styles';
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import { AppForm, AppFormField, SubmitButton } from '../components/forms';
-import AppButton from '../components/AppButton';
-import AppText from '../components/AppText';
+import authentication from '../auth/authentication';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(6).label("Password")
 });
 
-function LoginScreen({ navigation }) {
+function RegisterScreen({ navigation }) {
+    
+    const handleRegister = (values) => {
+        console.log(values.email)
+        console.log(values.password)
+        authentication.registerUser(values.email, values.password);
+    }
+    
     return (
         <Screen style={styles.container}>
             <ScrollView scrollEnabled={false}>
@@ -26,11 +32,10 @@ function LoginScreen({ navigation }) {
                     iconExtra={'menu'}
                     onPress={() => navigation.navigate('Menu')}
                     onPress2={() => Alert.alert(
-                        'Login Screen',
-                        `This screen allows you to login or register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
-                        \n To login, enter your account email and password in the corresponding fields, and tap 'Login'.
-                        \n To register an account, tap the 'Register' button.
-                        \n If you have forgotten your password, or simply cannot login, tap 'Forgot your password?' below the Register button.
+                        'Register Screen',
+                        `This screen allows you to register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
+                        \n To register, enter your chosen account email and password in the corresponding fields, and tap 'Register Account'.
+                        \n Upon successful registration, you will be taken back to the main menu.
                         \n Tap the top left 'Back' button to return to the main menu.`,
                         )}
                 />
@@ -41,7 +46,7 @@ function LoginScreen({ navigation }) {
                 <View style={{padding: 10}}>
                     <AppForm
                         initialValues={{email: '', password: ''}}
-                        onSubmit={value => console.log(values)}
+                        onSubmit={handleRegister}
                         validationSchema={validationSchema}
                     >
                         <AppFormField
@@ -61,15 +66,12 @@ function LoginScreen({ navigation }) {
                             icon="lock"
                             name="password"
                             placeholder="Password" // right now you have to click on the placeholder to type
-                            secureTextEntry
                             textContentType="password" // ios only keychain autofill
+                            secureTextEntry={true}
+                            keyboardType="default"
                         />
-                        <SubmitButton title="Login" />
+                        <SubmitButton title="Register Account" />
                     </AppForm>
-                    <AppButton title="Register" color="secondaryDark" onPress={() => navigation.navigate('Register')}/>
-                    <TouchableOpacity>
-                        <AppText style={styles.text}>Forgot password?</AppText>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </Screen>
@@ -97,4 +99,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default LoginScreen;
+export default RegisterScreen;

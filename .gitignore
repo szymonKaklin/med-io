@@ -17,6 +17,9 @@ __pycache__/
 # Python model - too large of a file
 model.pt
 
+# Firebase config - api keys and sensitive information
+/app/auth/firebaseConfig.js
+
 # Jupyter Notebook
 .ipynb_checkpoints
 

@@ -1,22 +1,19 @@
 import React from 'react';
+import * as firebase from 'firebase';
 import { Platform, StatusBar } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import LoginScreen from './app/screens/LoginScreen';
-import MenuScreen from './app/screens/MenuScreen';
-import PrescriptionsScreen from './app/screens/PrescriptionsScreen';
-import CameraScreen from './app/screens/CameraScreen';
-import ResultScreen from './app/screens/ResultScreen';
-
-import PrescriptionItem from './app/components/PrescriptionItem';
-import Screen from './app/components/Screen';
-import ListItem from './app/components/ListItem';
-import AppNavBar from './app/components/AppNavBar';
-import ResultItem from './app/components/ResultItem';
-import ImageInput from './app/components/ImageInput';
-
-import MenuNavigator from './app/navigation/MenuNavigator';
 import CameraNavigator from './app/navigation/CameraNavigator';
+
+// firebase config object - create a .js file with the config object provided by firebase in this location
+import firebaseConfig from './app/auth/firebaseConfig';
+
+// Initializing Firebase App if one is not initialized already
+if (!firebase.apps.length) {
+    // The function takes an input object which contains firebase api keys
+    // This is not included with the project repo.
+    firebase.initializeApp(firebaseConfig);
+}
 
 // Fix for putting up a status bar on iOS - defaults to light?
 if (Platform.OS === 'ios') {
