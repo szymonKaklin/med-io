@@ -18,10 +18,11 @@ Med.io is being built as part of an MEng university project. The app will allow 
   - Update all this using this years model
 - ~~Firebase~~
   - ~~User account creation~~
-    - Handle errors, display messages
-  - User login
-  - User sign-out
+    - ~~Handle errors, display messages~~
+  - ~~User login~~
+  - ~~User sign-out~~
   - Firestore
+    - Save and load prescription to/from firestore
 
 ### Bugs
 

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList, Alert } from 'react-native';
+import * as firebase from 'firebase';
 
-import defaultStyles from '../config/styles';
 import Screen from '../components/Screen';
 import Icon from '../components/Icon';
 import ListItem from '../components/ListItem';
 import AppNavBar from '../components/AppNavBar';
 import ListItemSeperator from '../components/ListItemSeperator';
+
+import defaultStyles from '../config/styles';
 
 const menuItems = [
     {
@@ -34,6 +36,21 @@ const menuItems = [
 ]
 
 function MenuScreen({ navigation }) {
+    
+    const [userEmail, setUserEmail] = useState(null)
+
+    useEffect(() => {
+        // Checking is user is signed in on screen render
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                console.log('User is signed in')
+                setUserEmail(user.email);
+            }
+        });
+    }, [userEmail]);
+    
     return (
         <Screen style={styles.screen}>
             <AppNavBar
@@ -52,12 +69,32 @@ function MenuScreen({ navigation }) {
                     )}
             />
             <View style={styles.container}>
-                <ListItem
+                {userEmail ? 
+                (<ListItem
+                    title="Tap to Log Out"
+                    subTitle={userEmail}
+                    IconComponent={
+                        <Icon
+                            name={'account-check'}
+                            backgroundColor={defaultStyles.colors.primaryLight}
+                            size={70}
+                        />}
+                    onPress={() => {
+                        firebase.auth().signOut();
+                        setUserEmail(null);
+                    }}
+                />) 
+                : 
+                (<ListItem
                     title="Tap to Login"
-                    //subTitle="szymon.kaklin@hotmail.co.uk"
-                    image={require('../assets/icon.png')}
+                    IconComponent={
+                        <Icon
+                            name={'account-question-outline'}
+                            backgroundColor={defaultStyles.colors.gray}
+                            size={70}
+                        />}
                     onPress={() => navigation.navigate('Login')}
-                />
+                />)}
             </View>
             <View style={styles.container}>
                 <FlatList 

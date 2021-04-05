@@ -2,10 +2,12 @@ import React from 'react';
 import { ScrollView, StyleSheet, Image, View, TouchableOpacity, Alert } from 'react-native';
 import * as Yup from 'yup';
 
-import defaultStyles from '../config/styles';
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import { AppForm, AppFormField, SubmitButton } from '../components/forms';
+import AppText from '../components/AppText';
+
+import defaultStyles from '../config/styles';
 import authentication from '../auth/authentication';
 
 const validationSchema = Yup.object().shape({
@@ -16,9 +18,23 @@ const validationSchema = Yup.object().shape({
 function RegisterScreen({ navigation }) {
     
     const handleRegister = (values) => {
-        console.log(values.email)
-        console.log(values.password)
-        authentication.registerUser(values.email, values.password);
+        authentication.registerUser(values.email, values.password)
+            .then((userCredential) => {
+                // Registers and signs in 
+                var user = userCredential.user;
+                console.log('Successfully created new user: ', user);
+                navigation.navigate('Menu')
+            })
+            .catch((error) => {
+                // Error creating user
+                console.log('Error creating new user. Error code: ', error.code)
+                console.log('Error message: ', error.message)
+
+                Alert.alert(
+                    'Failed Registering Account',
+                    `${error.message}`,
+                )
+            });
     }
     
     return (
@@ -30,7 +46,7 @@ function RegisterScreen({ navigation }) {
                     icon={"chevron-left"}
                     icon2={"help-circle-outline"}
                     iconExtra={'menu'}
-                    onPress={() => navigation.navigate('Menu')}
+                    onPress={() => navigation.goBack()}
                     onPress2={() => Alert.alert(
                         'Register Screen',
                         `This screen allows you to register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
@@ -43,6 +59,7 @@ function RegisterScreen({ navigation }) {
                     style={styles.logo}
                     source={require("../assets/medio_logo.png")}
                 />
+                <AppText style={styles.text}>Account Registration</AppText>
                 <View style={{padding: 10}}>
                     <AppForm
                         initialValues={{email: '', password: ''}}
@@ -92,10 +109,9 @@ const styles = StyleSheet.create({
         overflow: 'visible',
     },
     text: {
-        color: defaultStyles.colors.white,
-        marginTop: 10,
         alignSelf: 'center',
-        fontSize: 20,
+        color: defaultStyles.colors.white,
+        fontSize: 25,
     },
 })
 

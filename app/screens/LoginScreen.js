@@ -2,12 +2,15 @@ import React from 'react';
 import { ScrollView, StyleSheet, Image, View, TouchableOpacity, Alert } from 'react-native';
 import * as Yup from 'yup';
 
-import defaultStyles from '../config/styles';
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
 import { AppForm, AppFormField, SubmitButton } from '../components/forms';
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
+
+import defaultStyles from '../config/styles';
+import authentication from '../auth/authentication';
+
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
@@ -15,6 +18,27 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
+    
+    const handleLogin = (values) => {
+        authentication.signUserIn(values.email, values.password)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                console.log('Signed in: ', user);
+                navigation.goBack()
+            })
+            .catch((error) => {
+                // Error signing in
+                console.log('Error signing in. Error code: ', error.code)
+                console.log('Error message: ', error.message)
+
+                Alert.alert(
+                    'Failed to Login',
+                    `${error.message}`,
+                )
+            });
+    }
+    
     return (
         <Screen style={styles.container}>
             <ScrollView scrollEnabled={false}>
@@ -24,7 +48,7 @@ function LoginScreen({ navigation }) {
                     icon={"chevron-left"}
                     icon2={"help-circle-outline"}
                     iconExtra={'menu'}
-                    onPress={() => navigation.navigate('Menu')}
+                    onPress={() => navigation.goBack()}
                     onPress2={() => Alert.alert(
                         'Login Screen',
                         `This screen allows you to login or register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
@@ -41,7 +65,7 @@ function LoginScreen({ navigation }) {
                 <View style={{padding: 10}}>
                     <AppForm
                         initialValues={{email: '', password: ''}}
-                        onSubmit={value => console.log(values)}
+                        onSubmit={handleLogin}
                         validationSchema={validationSchema}
                     >
                         <AppFormField
