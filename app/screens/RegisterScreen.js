@@ -22,7 +22,7 @@ function RegisterScreen({ navigation }) {
             .then((userCredential) => {
                 // Registers and signs in 
                 var user = userCredential.user;
-                console.log('Successfully created new user: ', user);
+                console.log('Successfully created new user');
                 navigation.navigate('Menu')
             })
             .catch((error) => {
@@ -71,10 +71,10 @@ function RegisterScreen({ navigation }) {
                             errorColor="white"
                             autoCorrect={false}
                             icon="email"
-                            keyboardType="email-address"
                             name="email"
                             placeholder="Email" // right now you have to click on the placeholder to type
-                            textContentType="emailAddress" // ios only keychain email autofill 
+                            keyboardType="email-address"
+                            textContentType="oneTimeCode"
                         />
                         <AppFormField
                             autoCapitalize="none"
@@ -83,8 +83,8 @@ function RegisterScreen({ navigation }) {
                             icon="lock"
                             name="password"
                             placeholder="Password" // right now you have to click on the placeholder to type
-                            textContentType="password" // ios only keychain autofill
                             secureTextEntry={true}
+                            textContentType="oneTimeCode"
                             keyboardType="default"
                         />
                         <SubmitButton title="Register Account" />

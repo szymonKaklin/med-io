@@ -24,7 +24,7 @@ function LoginScreen({ navigation }) {
             .then((userCredential) => {
                 // Signed in
                 var user = userCredential.user;
-                console.log('Signed in: ', user);
+                console.log('Signed in');
                 navigation.goBack()
             })
             .catch((error) => {
@@ -73,10 +73,10 @@ function LoginScreen({ navigation }) {
                             errorColor="white"
                             autoCorrect={false}
                             icon="email"
-                            keyboardType="email-address"
                             name="email"
                             placeholder="Email" // right now you have to click on the placeholder to type
-                            textContentType="emailAddress" // ios only keychain email autofill 
+                            keyboardType="email-address"
+                            textContentType="oneTimeCode"
                         />
                         <AppFormField
                             autoCapitalize="none"
@@ -85,8 +85,9 @@ function LoginScreen({ navigation }) {
                             icon="lock"
                             name="password"
                             placeholder="Password" // right now you have to click on the placeholder to type
-                            secureTextEntry
-                            textContentType="password" // ios only keychain autofill
+                            secureTextEntry={true}
+                            textContentType="oneTimeCode"
+                            keyboardType="default"
                         />
                         <SubmitButton title="Login" />
                     </AppForm>

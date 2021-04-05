@@ -49,7 +49,7 @@ function MenuScreen({ navigation }) {
                 setUserEmail(user.email);
             }
         });
-    }, [userEmail]);
+    }, []);
     
     return (
         <Screen style={styles.screen}>
@@ -81,7 +81,8 @@ function MenuScreen({ navigation }) {
                         />}
                     onPress={() => {
                         firebase.auth().signOut();
-                        setUserEmail(null);
+                        setUserEmail(null)
+                        navigation.navigate('Login');
                     }}
                 />) 
                 : 
