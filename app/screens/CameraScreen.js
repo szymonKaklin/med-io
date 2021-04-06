@@ -12,11 +12,12 @@ import defaultStyles from '../config/styles';
 
 // Function for capturing image and sending to server
 function capturePill(navigation, cameraRef, setLoading) {
+    setLoading(true); // Set loading spinner in motion
+    cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
+    
     console.log('Pressed Cam Button');
     
     cameraRef.current.takePictureAsync().then(picture => {
-        setLoading(true); // Set loading spinner in motion
-        cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
 
         let localUri = picture.uri;
 
@@ -136,9 +137,6 @@ function CameraScreen({ navigation }) {
     return (
         <Screen style={styles.container}>
             <Camera style={styles.camera} type={Camera.Constants.Type.back} flashMode={flash} ref={cameraRef}/>
-            <View style={styles.loading}>
-            <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={loading}/>
-            </View>
             <View style={styles.navbar}>
             <AppNavBar
                 title={'Menu'}
@@ -163,6 +161,9 @@ function CameraScreen({ navigation }) {
                 />
                 <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading)} />
             </View>
+            {loading && <View style={styles.loading}>
+                <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={loading}/>
+            </View>}
         </Screen>
     );
 }

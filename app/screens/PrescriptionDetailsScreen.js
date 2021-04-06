@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
@@ -19,10 +19,15 @@ const validationSchema = Yup.object().shape({
 });
 
 function PrescriptionDetailsScreen({ navigation, route }) {
+    
     const prescription = route.params
+
+    // This state is used to track whether the loading spinner should be visible
+    const [loading, setLoading] = useState(false); 
 
     const handleSubmit = async (values) => {
         // have function from cache folder which takes this object
+        setLoading(true);
         console.log('adding prescription: ', values);
         let storedList = await cache.get('PrescriptionList');
         
@@ -39,7 +44,8 @@ function PrescriptionDetailsScreen({ navigation, route }) {
         }
 
         // small timeout before going back to the prescriptions so list can refresh unseen
-        setTimeout(() => navigation.goBack(), 200);
+        navigation.goBack();
+        setLoading(true);
     }
 
     return (
@@ -98,6 +104,9 @@ function PrescriptionDetailsScreen({ navigation, route }) {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+            {loading && <View style={styles.loading}>
+                <ActivityIndicator size="large" color={colors.primary} animating={loading}/>
+            </View>}
         </Screen>
     );
 }
@@ -105,6 +114,15 @@ function PrescriptionDetailsScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     picker: {
         backgroundColor: 'white',

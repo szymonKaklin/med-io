@@ -35,7 +35,7 @@ Med.io is being built as part of an MEng university project. The app will allow 
 
 - Result screen text font size is too small for medicines with long names
   - ~~content text also looks weird at times~~
-- You can send multiple post requests by pressing the camera button multiple times
-- You can add multiple prescriptions at the same time by pressing the add prescription button too quickly
+- ~~You can send multiple post requests by pressing the camera button multiple times~~
+- ~~You can add multiple prescriptions at the same time by pressing the add prescription button too quickly~~
 - Prescription list does not automatically refresh when a prescription is removed - a manual refresh by pulling down on the list is required
 - Login Password field glitches out visually on long strings; but validates correctly

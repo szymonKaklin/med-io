@@ -37,7 +37,8 @@ const handleSubmit = async (values, navigation, setLoading) => {
             formData.append('file', { uri: localUri, name: filename, type });
 
             // https://server-3lx5htvqrq-ew.a.run.app/predict
-            fetch("http://192.168.1.171:9999/predict", {
+            // http://192.168.1.171:9999/predict
+            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
             method: 'POST',
             body: formData,
             headers: {
@@ -135,9 +136,6 @@ function ImageLibraryScreen({ navigation }) {
 
     return (
         <Screen style={styles.screen}>
-            <View style={styles.loading}>
-                <ActivityIndicator size="large" color={colors.primary} animating={loading}/>
-            </View>
             <AppNavBar
                 title={'Back'}
                 title2={'Help'}
@@ -203,6 +201,9 @@ function ImageLibraryScreen({ navigation }) {
                     </AppForm>
                 </View>
             </ScrollView>}
+            {loading && <View style={styles.loading}>
+                <ActivityIndicator size="large" color={colors.primary} animating={loading}/>
+            </View>}
         </Screen>
     );
 }
@@ -216,7 +217,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
-        //backgroundColor: 'green',
     },
     loading: {
         position: 'absolute',
