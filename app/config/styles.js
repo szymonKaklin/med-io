@@ -8,6 +8,7 @@ export default {
         color: colors.dark,
         fontSize: 18,
         textAlignVertical: 'top',
-        fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir"
+        textAlign: 'left',
+        fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     }
 }

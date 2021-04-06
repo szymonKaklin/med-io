@@ -7,11 +7,15 @@ import defaultStyles from '../config/styles';
 function AppTextInput({ icon, ...otherProps }) {
     return (
         <View style={styles.container}>
+            <View>
                 {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.black} style={styles.icon} />}
+            </View>
+            <View style={{flex: 1}}>
                 <TextInput
                     style={defaultStyles.text}
                     {...otherProps}
                 />
+            </View>
         </View>
     );
 }
