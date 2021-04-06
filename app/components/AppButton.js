@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         borderRadius: 25,
         justifyContent: 'center',
-        alignItems: 'center',
         padding: 15,
         width: '100%',
         marginVertical: 10,
@@ -26,7 +25,8 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 18,
         textTransform: 'uppercase',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 
