@@ -63,9 +63,9 @@ function MenuScreen({ navigation }) {
                 onPress2={() => Alert.alert(
                     'Main Menu',
                     `Tap the top left 'Back' button to return to the camera screen.
-                    \n 'Tap to Login' allows you to login or register an account, allowing you to store your prescriptions across devices.
-                    \n Tapping 'My Prescriptions' will take you to a list of your prescriptions, where you can view, edit or add new prescriptions.
-                    \n Tapping 'Info' will give you more information regarding the app, whilst 'Settings' will allow you to configure the app.`,
+                    \n'Tap to Login' allows you to login or register an account, allowing you to store your prescriptions across devices.
+                    \nTapping 'My Prescriptions' will take you to a list of your prescriptions, where you can view, edit or add new prescriptions.
+                    \nTapping 'Info' will give you more information regarding the app, whilst 'Settings' will allow you to configure the app.`,
                     )}
             />
             <View style={styles.container}>

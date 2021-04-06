@@ -147,8 +147,8 @@ function CameraScreen({ navigation }) {
                 onPress2={() => Alert.alert(
                 'Camera Screen',
                 `Aim your phone camera at the medicine, and tap the 'Take Picture' button to attempt to identify it.
-                \n The bottom left button can be used to toggle the flash on/off.
-                \n Navigate to the main menu by pressing the top left 'Menu' button.`,
+                \nThe bottom left button can be used to toggle the flash on/off.
+                \nNavigate to the main menu by pressing the top left 'Menu' button.`,
                 )}
                 />
             </View>

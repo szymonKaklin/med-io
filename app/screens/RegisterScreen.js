@@ -39,22 +39,22 @@ function RegisterScreen({ navigation }) {
     
     return (
         <Screen style={styles.container}>
-            <ScrollView scrollEnabled={false}>
-                <AppNavBar
-                    title={'Back'}
-                    title2={'Help'}
-                    icon={"chevron-left"}
-                    icon2={"help-circle-outline"}
-                    iconExtra={'menu'}
-                    onPress={() => navigation.goBack()}
-                    onPress2={() => Alert.alert(
-                        'Register Screen',
-                        `This screen allows you to register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
-                        \n To register, enter your chosen account email and password in the corresponding fields, and tap 'Register Account'.
-                        \n Upon successful registration, you will be taken back to the main menu.
-                        \n Tap the top left 'Back' button to return to the main menu.`,
-                        )}
-                />
+            <AppNavBar
+                title={'Back'}
+                title2={'Help'}
+                icon={"chevron-left"}
+                icon2={"help-circle-outline"}
+                iconExtra={'menu'}
+                onPress={() => navigation.goBack()}
+                onPress2={() => Alert.alert(
+                    'Register Screen',
+                    `This screen allows you to register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
+                    \nTo register, enter your chosen account email and password in the corresponding fields, and tap 'Register Account'.
+                    \nUpon successful registration, you will be taken back to the main menu.
+                    \nTap the top left 'Back' button to return to the main menu.`,
+                    )}
+            />
+            <ScrollView scrollEnabled={true}>
                 <Image
                     style={styles.logo}
                     source={require("../assets/medio_logo.png")}
@@ -102,8 +102,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         resizeMode: 'contain',
-        width: 350,
-        height: 150,
+        width: 330,
+        height: 120,
+        marginLeft: 5,
         alignSelf: 'center',
         // backgroundColor: 'yellow',
         overflow: 'visible',

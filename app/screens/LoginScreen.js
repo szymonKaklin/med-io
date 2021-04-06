@@ -41,23 +41,23 @@ function LoginScreen({ navigation }) {
     
     return (
         <Screen style={styles.container}>
-            <ScrollView scrollEnabled={false}>
-                <AppNavBar
-                    title={'Back'}
-                    title2={'Help'}
-                    icon={"chevron-left"}
-                    icon2={"help-circle-outline"}
-                    iconExtra={'menu'}
-                    onPress={() => navigation.goBack()}
-                    onPress2={() => Alert.alert(
-                        'Login Screen',
-                        `This screen allows you to login or register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
-                        \n To login, enter your account email and password in the corresponding fields, and tap 'Login'.
-                        \n To register an account, tap the 'Register' button.
-                        \n If you have forgotten your password, or simply cannot login, tap 'Forgot your password?' below the Register button.
-                        \n Tap the top left 'Back' button to return to the main menu.`,
-                        )}
-                />
+            <AppNavBar
+                title={'Back'}
+                title2={'Help'}
+                icon={"chevron-left"}
+                icon2={"help-circle-outline"}
+                iconExtra={'menu'}
+                onPress={() => navigation.goBack()}
+                onPress2={() => Alert.alert(
+                    'Login Screen',
+                    `This screen allows you to login or register an account with us. Doing so allows you to store your prescriptions and settings across your devices.
+                    \nTo login, enter your account email and password in the corresponding fields, and tap 'Login'.
+                    \nTo register an account, tap the 'Register' button.
+                    \nIf you have forgotten your password, or simply cannot login, tap 'Forgot your password?' below the Register button.
+                    \nTap the top left 'Back' button to return to the main menu.`,
+                    )}
+            />
+            <ScrollView scrollEnabled={true}>
                 <Image
                     style={styles.logo}
                     source={require("../assets/medio_logo.png")}
@@ -108,8 +108,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         resizeMode: 'contain',
-        width: 350,
-        height: 150,
+        width: 330,
+        height: 120,
+        marginLeft: 5,
         alignSelf: 'center',
         // backgroundColor: 'yellow',
         overflow: 'visible',
