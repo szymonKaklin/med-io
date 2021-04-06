@@ -74,7 +74,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
                 formData.append('file', { uri: localUri, name: filename, type });
             }
             
-            fetch("http://192.168.1.171:9999/predict", {
+            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
             method: 'POST',
             body: formData,
             headers: {
