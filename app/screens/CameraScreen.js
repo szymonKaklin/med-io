@@ -11,13 +11,12 @@ import Screen from '../components/Screen';
 import defaultStyles from '../config/styles';
 
 // Function for capturing image and sending to server
-function capturePill(navigation, cameraRef, setLoading) {
-    setLoading(true); // Set loading spinner in motion
-    cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
-    
-    console.log('Pressed Cam Button');
+function capturePill(navigation, cameraRef, setLoading, setAnimating) {
+    setLoading(true); // Disable UI by rendering loading view
     
     cameraRef.current.takePictureAsync().then(picture => {
+        cameraRef.current.pausePreview(); // Pause the live view of the image in the application so we can capture an image
+        setAnimating(true); // animate loading spinner
 
         let localUri = picture.uri;
 
@@ -64,7 +63,8 @@ function capturePill(navigation, cameraRef, setLoading) {
         }).then(response => {
             response.json().then(result => {        
                 // This is where we would handle the response by navigating to appropriate result
-                setLoading(false); // stop the loading spinner
+                setAnimating(false); // stop animating spinner
+                setLoading(false); // enable UI again by not rendering the view
                 cameraRef.current.resumePreview() // resume live camera preview
 
                 // The model returns the confidence as logsoftmax (this is a strange function with a negative value).
@@ -87,8 +87,11 @@ function capturePill(navigation, cameraRef, setLoading) {
 function CameraScreen({ navigation }) {
     const [hasPermission, setHasPermission] = useState(null);
     
-    // This state is used to track whether the loading spinner should be visible
+    // This state is used to track whether the loading screen should render, disabling interaction
     const [loading, setLoading] = useState(false); 
+
+    // This state animates the loading spinner
+    const [animating, setAnimating] = useState(false); 
 
     // This allows us to keep a track of the camera element so we can call methods of it
     const cameraRef = useRef(null); 
@@ -159,10 +162,10 @@ function CameraScreen({ navigation }) {
                 onPress={() => setFlash(flash ? false : true)}
                 onPress2={() => navigation.navigate('Image')}
                 />
-                <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading)} />
+                <AppCamButton title={'camera'} color={defaultStyles.colors.primary} onPress={() => capturePill(navigation, cameraRef, setLoading, setAnimating)} />
             </View>
             {loading && <View style={styles.loading}>
-                <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={loading}/>
+                <ActivityIndicator size="large" color={defaultStyles.colors.primary} animating={animating}/>
             </View>}
         </Screen>
     );
