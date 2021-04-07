@@ -42,7 +42,7 @@ function PrescriptionItem({item, id, title, subTitle, imageUri, onPress}) {
                         {imageNotFound ? 
                         (
                             <View style={styles.imageNotFound}>
-                                <AppText>Image not found on device</AppText>
+                                <AppText style={{fontSize: 20, color: 'white'}}>Image not found on device</AppText>
                                 <MaterialCommunityIcons name="image-off" color="white" size={130} />
                             </View>
                         ) : (
