@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, Alert } from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 import defaultStyles from '../config/styles';
 import Screen from '../components/Screen';
@@ -16,18 +18,37 @@ function PrescriptionsScreen({ navigation }) {
     const [refreshing, setRefreshing] = useState(false); // setting state of refresh when pulling up to refresh list
 
     const loadPrescriptions = async () => {
-        console.log('Loading prescriptions from storage');
-        const data = await cache.get('PrescriptionList');
-        
-        if (!data)
-            setPrescriptions([]);
-        else 
-            setPrescriptions(data);
+        // check if user is signed in
+        if (firebase.auth().currentUser) {
+            const user = firebase.auth().currentUser;
+            console.log('User is signed in: loading from firestore')
+
+            const db = firebase.firestore();
+
+            // getting PrescriptionList from firestore
+            db.collection("users").doc(user.uid).get()
+            .then((doc) => {
+                setPrescriptions(doc.data().PrescriptionList);
+            })
+            .catch((error) => {
+                console.error("Error reading prescriptions from firestore: ", error);
+            });
+        }
+        else {
+            // no user signed in, load from cache
+            console.log('User not signed in: loading from cache');
+            const data = await cache.get('PrescriptionList');
+            
+            if (!data)
+                setPrescriptions([]);
+            else 
+                setPrescriptions(data);
+        }
     };
     
     // Everytime we see this screen, we load the prescriptions stored in asyncstorage
     useEffect(() => {
-        // tying this to navigation means the screen re-loads prescriptions when it comes into focus
+        // Tying this to navigation means the screen should re-load prescriptions when it comes into focus
         const unsubscribe = navigation.addListener('focus', () => {
             loadPrescriptions();
         })
@@ -55,7 +76,7 @@ function PrescriptionsScreen({ navigation }) {
             <View style={styles.list}>
                 {(prescriptions.length === 0) &&
                     <View style={styles.noPrescriptions}>
-                        <AppText style={{fontSize: 30, textAlign: 'center'}}>Your prescriptions list is currrently empty.</AppText>
+                        <AppText style={{fontSize: 30, textAlign: 'center'}}>Your prescriptions list is currently empty.</AppText>
                     </View>
                 }
                 <FlatList
@@ -64,6 +85,7 @@ function PrescriptionsScreen({ navigation }) {
                     keyExtractor={prescription => prescription.id.toString()}
                     renderItem={({item}) => 
                         <PrescriptionItem
+                            item={item}
                             id={item.id}
                             title={item.medicine}
                             subTitle={"Added: " + item.date}

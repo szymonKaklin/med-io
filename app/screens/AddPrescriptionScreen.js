@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
-import * as Yup from 'yup';
 import moment from 'moment';
+import * as Yup from 'yup';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -30,15 +32,38 @@ function AddPrescriptionScreen({ navigation, route }) {
         // have function from cache folder which takes this object
         setLoading(true);
         console.log('adding prescription: ', values);
-        let storedList = await cache.get('PrescriptionList');
-        
-        if (!storedList) {
-            cache.store('PrescriptionList', [values]);
+
+        // check if user is signed in
+        if (firebase.auth().currentUser) {
+            // user is signed in, load from firestore
+            const user = firebase.auth().currentUser;
+            console.log('\tUser is signed in, adding to firestore...');
+
+            const db = firebase.firestore();
+
+            // appends a prescription object to the PrescriptionList field in firestore
+            db.collection("users").doc(user.uid).update({
+                PrescriptionList: firebase.firestore.FieldValue.arrayUnion(values)
+            }).then(() => {
+                console.log("\tSuccessful adding PrescriptionList to firestore");
+            })
+            .catch((error) => {
+                console.error("\tError adding PrescriptionList to firestore: ", error);
+            });
         }
         else {
-            cache.store('PrescriptionList', [...storedList, values]);
+            // no user signed in
+            console.log('\tUser not signed in, adding to cache...');
+            let storedList = await cache.get('PrescriptionList');
+            
+            if (!storedList) {
+                cache.store('PrescriptionList', [values]);
+            }
+            else {
+                cache.store('PrescriptionList', [...storedList, values]);
+            }
         }
-        
+
         navigation.goBack();
         setLoading(false);
     }

@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -7,11 +9,27 @@ import AppText from './AppText';
 import colors from '../config/colors';
 import cache from '../cache/cache';
 
-function PrescriptionItem({id, title, subTitle, imageUri, onPress /*onRemoved*/}) {
+function PrescriptionItem({item, id, title, subTitle, imageUri, onPress}) {
 
     const handleRemove = () => {
-        cache.removePrescription(id);
-        //onRemoved(true);
+        if (firebase.auth().currentUser) {
+            const user = firebase.auth().currentUser;
+
+            const db = firebase.firestore();
+
+            // appends a prescription object to the PrescriptionList field in firestore
+            db.collection("users").doc(user.uid).update({
+                PrescriptionList: firebase.firestore.FieldValue.arrayRemove(item)
+            }).then(() => {
+                console.log("Successful removing prescription from firestore");
+            })
+            .catch((error) => {
+                console.error("Error removing prescription from firestore: ", error);
+            });
+        }
+        else {
+            cache.removePrescription(id);
+        }
     };
 
     return (

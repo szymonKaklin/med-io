@@ -88,6 +88,7 @@ function MenuScreen({ navigation }) {
                 : 
                 (<ListItem
                     title="Tap to Login"
+                    subTitle="local user"
                     IconComponent={
                         <Icon
                             name={'account-question-outline'}

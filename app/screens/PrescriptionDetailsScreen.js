@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import * as Yup from 'yup';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -24,23 +26,54 @@ function PrescriptionDetailsScreen({ navigation, route }) {
 
     // This state is used to track whether the loading spinner should be visible
     const [loading, setLoading] = useState(false); 
-
+    
     const handleSubmit = async (values) => {
         // have function from cache folder which takes this object
         setLoading(true);
         console.log('adding prescription: ', values);
-        let storedList = await cache.get('PrescriptionList');
-        
-        // There should always be a prescriptionList stored in async storage when we are on this screen
-        // but just in case we handle the case when there is none
-        if (!storedList) {
-            console.log('No prescriptions')
+
+        if (firebase.auth().currentUser) {
+            // user is signed in, load from firestore
+            const user = firebase.auth().currentUser;
+            console.log('User is signed in:, ', user.uid)
+
+            const db = firebase.firestore();
+
+            // we must update whole array, so we get the array first then set it with the appended new prescription
+            db.collection("users").doc(user.uid).get()
+            .then((doc) => {
+                var firestoredList = doc.data().PrescriptionList;
+
+                var idx = firestoredList.findIndex(prescription => prescription.id === values.id)
+                firestoredList[idx] = values
+
+                db.collection("users").doc(user.uid).set({
+                    PrescriptionList: firestoredList
+                }).then(() => {
+                    console.log("Successful updating PrescriptionList in firestore");
+                })
+                .catch((error) => {
+                    console.error("Error updating PrescriptionList in firestore: ", error);
+                });
+            })
+            .catch((error) => {
+                console.error("Error reading prescriptions from firestore: ", error);
+            });
         }
         else {
-            const idx = storedList.findIndex(prescription => prescription.id === values.id)
-            storedList[idx] = values
-
-            cache.store('PrescriptionList', storedList);
+            let storedList = await cache.get('PrescriptionList');
+            
+            // There should always be a prescriptionList stored in async storage when we are on this screen
+            // but just in case we handle the case when there is none
+            if (!storedList) {
+                console.log('No prescriptions')
+            }
+            else {
+                const idx = storedList.findIndex(prescription => prescription.id === values.id)
+                storedList[idx] = values
+    
+                cache.store('PrescriptionList', storedList);
+            }
         }
 
         // small timeout before going back to the prescriptions so list can refresh unseen

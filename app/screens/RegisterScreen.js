@@ -1,6 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Image, View, TouchableOpacity, Alert } from 'react-native';
 import * as Yup from 'yup';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -22,7 +24,20 @@ function RegisterScreen({ navigation }) {
             .then((userCredential) => {
                 // Registers and signs in 
                 var user = userCredential.user;
-                console.log('Successfully created new user');
+                console.log('Successfully created new user: ', user.uid);
+
+                const db = firebase.firestore();
+                
+                // create a db entry for the user in firestore
+                db.collection("users").doc(user.uid).set({
+                    PrescriptionList: []
+                }).then(() => {
+                    console.log("Successful create to firestore");
+                })
+                .catch((error) => {
+                    console.error("Error writing doc to firestore: ", error);
+                });
+
                 navigation.navigate('Menu')
             })
             .catch((error) => {
