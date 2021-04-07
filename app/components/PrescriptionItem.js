@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AppText from './AppText';
 import colors from '../config/colors';
 import cache from '../cache/cache';
 
 function PrescriptionItem({item, id, title, subTitle, imageUri, onPress}) {
+    
+    // Used to tell if imageUri is pointing invalid image
+    const [imageNotFound, setImageNotFound] = useState(false)
 
     const handleRemove = () => {
         if (firebase.auth().currentUser) {
@@ -36,7 +38,17 @@ function PrescriptionItem({item, id, title, subTitle, imageUri, onPress}) {
         <View style={styles.card}>
             {(imageUri !== '') ?
                 (
-                    <Image style={styles.image} source={{uri: imageUri}} />
+                    <View>
+                        {imageNotFound ? 
+                        (
+                            <View style={styles.imageNotFound}>
+                                <AppText>Image not found on device</AppText>
+                                <MaterialCommunityIcons name="image-off" color="white" size={130} />
+                            </View>
+                        ) : (
+                            <Image style={styles.image} source={{uri: imageUri}} onError={() => setImageNotFound(true)} />
+                        )}
+                    </View>
                 ) : (
                     <View style={styles.noImage}>
                         <FontAwesome5 name="prescription-bottle-alt" color="white" size={150} />
@@ -101,6 +113,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: "100%",
         height: 200,
+    },
+    imageNotFound: {
+        backgroundColor: colors.gray,
+        alignItems: 'center',
+        width: "100%",
+        height: 200,
+        padding: 20,
     },
     noImage: {
         backgroundColor: colors.secondaryLight,
