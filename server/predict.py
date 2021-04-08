@@ -13,7 +13,12 @@ model = models.vgg16()
 ## These must be updated if new classes are added to the model.
 ## These can be exported from the model like this:
 ## json.dumps(class_names)
+
+# Replace depending on model
+# 2020
 class_names = ["allo", "azith", "crocin", "dilt", "flu", "ibu", "para", "tams"]
+# 2021
+#class_names = ["furo", "allo", "amio", "trama", "simva", "irbe", "levo", "clari"]
 
 classifier_input = model.classifier[0].in_features
 num_labels = len(class_names)

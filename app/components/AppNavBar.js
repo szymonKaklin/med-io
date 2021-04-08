@@ -10,11 +10,11 @@ function AppNavBar({title, title2, onPress, onPress2, color = "primary", color2 
     <View style={styles.container}>
         <TouchableOpacity style={[styles.button, { backgroundColor: colors[color]}] } onPress={onPress}>
             {icon && <MaterialCommunityIcons name={icon} color={colors.white} size={45}/>}
-            {iconExtra && <MaterialCommunityIcons name={iconExtra} color={colors.white} size={25}/>}
-            <AppText style={[styles.text, { paddingLeft: 10 }]}>{title}</AppText>
+            {iconExtra && <MaterialCommunityIcons name={iconExtra} color={colors.white} size={20}/>}
+            <AppText style={[styles.text, { paddingLeft: 5, paddingRight: 15 }]}>{title}</AppText>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: colors[color2]}] } onPress={onPress2}>
-            <AppText style={styles.text}>{title2}</AppText>
+            <AppText style={[styles.text, { paddingLeft: 15}]}>{title2}</AppText>
             {iconExtra2 && <MaterialCommunityIcons name={iconExtra2} color={colors.white} size={25}/>}
             {icon2 && <MaterialCommunityIcons name={icon2} color={colors.white} size={45}/>}
         </TouchableOpacity>
@@ -25,7 +25,10 @@ function AppNavBar({title, title2, onPress, onPress2, color = "primary", color2 
 const styles = StyleSheet.create({
     button: {
         backgroundColor: colors.primary,
-        padding: 12,
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingLeft: 4,
+        paddingRight: 8,
         width: '50%',
         flexDirection: 'row',
         alignItems: 'center',
@@ -38,9 +41,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.white,
-        fontSize: 30,
+        fontSize:30,
         textTransform: 'uppercase',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
 });
 
