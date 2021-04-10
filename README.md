@@ -2,7 +2,11 @@
 
 ## What is it?
 
-Med.io is being built as part of an MEng university project. The app will allow users to identfiy pills using their smartphone camera, as well as store prescription information tied to their specific user account.
+Med.io is a React Native, iOS/Android app being built as part of an MEng university project. The app allows users to identfiy a selection of pills using their smartphone camera, as well as store prescription information on those pills tied to their specific user account.
+
+## Demo
+
+![alt text]<img src="./app/assets/medio-demo.gif" width="300" height="534">
 
 ### TODO
 
