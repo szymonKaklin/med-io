@@ -6,7 +6,9 @@ Med.io is a React Native, iOS/Android app being built as part of an MEng univers
 
 ## Demo
 
-![alt text]<img src="./app/assets/medio-demo.gif" width="300" height="534">
+<p align="center">
+    <img src="./app/assets/medio-demo.gif" width="240" height="427">
+</p>
 
 ### TODO
 
