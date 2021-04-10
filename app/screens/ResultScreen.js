@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { CommonActions, StackActions } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 
 import Screen from '../components/Screen';
 import AppNavBar from '../components/AppNavBar';
@@ -25,17 +28,39 @@ function ResultScreen({ route, navigation }) {
     const [foundPrescription, setFoundPrescription] = useState(null);
 
     const loadPrescription = async (title) => {
-        console.log('Loading prescriptions from storage');
-        const data = await cache.get('PrescriptionList');
-        
-        if (!data) {
-            // no prescription found :(
-            setFoundPrescription(null);
+        // check if user is signed in
+        if (firebase.auth().currentUser) {
+            const user = firebase.auth().currentUser;
+            console.log('User is signed in: loading from firestore')
+
+            const db = firebase.firestore();
+
+            // getting PrescriptionList from firestore and trying to find medicineID
+            db.collection("users").doc(user.uid).get()
+            .then((doc) => {
+                var firestoredList = doc.data().PrescriptionList;
+
+                // finding first maching prescription entry
+                const found = firestoredList.find(prescription => prescription.medicine === title)
+                setFoundPrescription(found);
+            })
+            .catch((error) => {
+                console.error("Error reading prescriptions from firestore: ", error);
+            });
         }
         else {
-            // currently we just find the first matching prescription entry and output that
-            const found = data.find(prescription => prescription.medicine === title)
-            setFoundPrescription(found);
+            console.log('Loading prescriptions from storage');
+            const data = await cache.get('PrescriptionList');
+            
+            if (!data) {
+                // no prescription found :(
+                setFoundPrescription(null);
+            }
+            else {
+                // currently we just find the first matching prescription entry and output that
+                const found = data.find(prescription => prescription.medicine === title)
+                setFoundPrescription(found);
+            }
         }
     };
 
@@ -98,7 +123,7 @@ function ResultScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        //flex: 1,
         justifyContent: 'flex-end',
     },
     resultImage: {

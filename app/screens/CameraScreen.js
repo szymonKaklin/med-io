@@ -37,7 +37,7 @@ function capturePill(navigation, cameraRef, setLoading, setAnimating) {
             // https://server-3lx5htvqrq-ew.a.run.app/predict
             // Local: 
             // "http://192.168.1.171:9999/predict"
-            fetch("http://192.168.1.171:9999/predict", {
+            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
                 method: 'POST',
                 body: formData,
                 headers: {
