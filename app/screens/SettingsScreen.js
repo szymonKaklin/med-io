@@ -20,7 +20,7 @@ function SettingsScreen({ navigation }) {
                 onPress={() => navigation.goBack()}
                 onPress2={() => Alert.alert(
                     'Settings Screen',
-                    `This screen`,
+                    `This screen can be used to configure various aspects of the app.`,
                     )}
             />
             <ScrollView scrollEnabled={true}>

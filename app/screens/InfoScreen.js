@@ -45,12 +45,12 @@ function InfoScreen({ navigation }) {
                     <AppText style={styles.text}>Supported Medicines</AppText>
                     <View style={[styles.textBox, {flexDirection: 'column'}]}>
                         {MEDICINES.map((item) => (
-                            <>
+                            <React.Fragment key={item.id}>
                             <View style={{padding: 5}}>
                                 <AppText>{item.title}</AppText>
                             </View>
                                 <ListItemSeperator/>
-                            </>
+                            </React.Fragment>
                         ))}
                     </View>
                 </View>
