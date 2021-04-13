@@ -75,7 +75,7 @@ function RegisterScreen({ navigation }) {
                     source={require("../assets/medio_logo.png")}
                 />
                 <AppText style={styles.text}>Account Registration</AppText>
-                <View style={{padding: 10}}>
+                <View style={{padding: 10, paddingTop: 0}}>
                     <AppForm
                         initialValues={{email: '', password: ''}}
                         onSubmit={handleRegister}
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: "90%",
         height: "40%",
-        paddingBottom: 25,
         marginLeft: 5,
+        paddingTop: 30,
         alignSelf: 'center',
         //backgroundColor: 'yellow',
         overflow: 'visible',

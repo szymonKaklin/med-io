@@ -62,7 +62,7 @@ function LoginScreen({ navigation }) {
                     style={styles.logo}
                     source={require("../assets/medio_logo.png")}
                 />
-                <View style={{padding: 10}}>
+                <View style={{padding: 10, paddingTop: 5}}>
                     <AppForm
                         initialValues={{email: '', password: ''}}
                         onSubmit={handleLogin}
@@ -92,7 +92,7 @@ function LoginScreen({ navigation }) {
                         <SubmitButton title="Login" />
                     </AppForm>
                     <AppButton title="Register" color="secondaryDark" onPress={() => navigation.navigate('Register')}/>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{marginBottom: 120}}>
                         <AppText style={styles.text}>Forgot password?</AppText>
                     </TouchableOpacity>
                 </View>
@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
     logo: {
         resizeMode: 'contain',
         width: "90%",
-        height: "35%",
+        height: "25%",
         marginLeft: 5,
         alignSelf: 'center',
-        // backgroundColor: 'yellow',
+        //backgroundColor: 'yellow',
         overflow: 'visible',
     },
     text: {
