@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Med.io is a React Native, iOS/Android app being built as part of an MEng university project. The app allows users to identfiy a selection of pills using their smartphone camera, as well as store prescription information on those pills tied to their specific user account.
+Med.io is a React Native, iOS/Android app being built as part of an MEng university project. The app allows users to identfiy a selection of pills using their smartphone camera, as well as store prescription information on these pills, all tied to their specific user account.
 
 Note: this is a proof of concept project, pill identification results are not always accurate and should not be used to as a guide.
 
@@ -18,7 +18,7 @@ Note: this is a proof of concept project, pill identification results are not al
 - If the pill is present in our database and has been identified you can:
   - Add it to your prescriptions OR see the prescription for this medicine if one is already present in your saved prescriptions
 - Add prescriptions for a medicine and select an image to represent the prescription
-- Create a user account (using Firebase) and store your prescriptions on the cloud, enabling acess across devices.
+- Create a user account (using Firebase) and store your prescriptions on the cloud, enabling acess to your saved prescriptions across devices.
 
 ### To-do list
 

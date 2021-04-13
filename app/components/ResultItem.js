@@ -32,7 +32,7 @@ function ResultItem({title, image, prescription}) {
                     </View>
                     <View style={styles.textContent}>
                         <View style={styles.containerText}>
-                        <AppText style={styles.textHeading}>Directions:</AppText>
+                        <AppText style={styles.textHeading}>Directions</AppText>
                             {prescription ? 
                                 (<AppText style={{fontSize: 25, textAlign: 'left'}}>{prescription.directions}</AppText>) 
                                 : 

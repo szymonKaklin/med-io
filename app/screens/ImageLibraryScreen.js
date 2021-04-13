@@ -38,7 +38,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
 
             // https://server-3lx5htvqrq-ew.a.run.app/predict
             // http://192.168.1.171:9999/predict
-            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
+            fetch("http://192.168.1.171:9999/predict", {
             method: 'POST',
             body: formData,
             headers: {
@@ -74,7 +74,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
                 formData.append('file', { uri: localUri, name: filename, type });
             }
             
-            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
+            fetch("http://192.168.1.171:9999/predict", {
             method: 'POST',
             body: formData,
             headers: {

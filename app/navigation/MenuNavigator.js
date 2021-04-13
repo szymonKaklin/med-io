@@ -7,6 +7,8 @@ import AddPrescriptionScreen from '../screens/AddPrescriptionScreen';
 import PrescriptionDetailsScreen from '../screens/PrescriptionDetailsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import InfoScreen from '../screens/InfoScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import CameraScreen from '../screens/CameraScreen';
 
 const MenuStack = createStackNavigator();
@@ -26,6 +28,8 @@ const MenuNavigator = () => (
         <MenuStack.Screen name="Camera" component={CameraScreen}/>
         <MenuStack.Screen name="Login" component={LoginScreen}/>
         <MenuStack.Screen name="Register" component={RegisterScreen}/>
+        <MenuStack.Screen name="Info" component={InfoScreen}/>
+        <MenuStack.Screen name="Settings" component={SettingsScreen}/>
         <MenuStack.Screen name="Prescriptions" component={NestedPrescriptions}/>
     </MenuStack.Navigator>
 );

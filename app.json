@@ -3,7 +3,7 @@
     "name": "Medio",
     "slug": "Medio",
     "owner": "ucl-eee-meng",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon_medio.png",
     "splash": {

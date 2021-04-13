@@ -1,4 +1,4 @@
-// 2021 medicines
+// // 2021 medicines
 // export default [
 //     {
 //         id: 'furo',
@@ -34,7 +34,7 @@
 //     },
 // ];
 
-// 2020 medicines
+// // 2020 medicines
 export default [
     {
         id: 'allo',

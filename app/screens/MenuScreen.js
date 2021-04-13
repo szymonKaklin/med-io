@@ -24,14 +24,16 @@ const menuItems = [
         icon: {
             name: "help",
             backgroundColor: defaultStyles.colors.secondary,
-        }
+        },
+        targetScreen: "Info"
     },
     {
         title: "Settings",
         icon: {
             name: "settings",
             backgroundColor: defaultStyles.colors.secondaryDark,
-        }
+        },
+        targetScreen: "Settings"
     }
 ]
 
