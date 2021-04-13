@@ -39,16 +39,16 @@ function InfoScreen({ navigation }) {
                         <AppText style={{fontWeight: '800'}}>
                             DISCLAIMER: This early version of the app serves as a proof of concept, and any
                             identification results given by the app should NOT be taken as guidance, as they
-                            may not be correct. 
+                            may not be correct.
                         </AppText>
                     </View>
                     <AppText style={styles.text}>Supported Medicines</AppText>
                     <View style={[styles.textBox, {flexDirection: 'column'}]}>
                         {MEDICINES.map((item) => (
                             <React.Fragment key={item.id}>
-                            <View style={{padding: 5}}>
-                                <AppText>{item.title}</AppText>
-                            </View>
+                                <View style={{padding: 5}}>
+                                    <AppText>{item.title}</AppText>
+                                </View>
                                 <ListItemSeperator/>
                             </React.Fragment>
                         ))}
