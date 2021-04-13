@@ -117,11 +117,12 @@ const styles = StyleSheet.create({
     },
     logo: {
         resizeMode: 'contain',
-        width: 330,
-        height: 120,
+        width: "90%",
+        height: "40%",
+        paddingBottom: 25,
         marginLeft: 5,
         alignSelf: 'center',
-        // backgroundColor: 'yellow',
+        //backgroundColor: 'yellow',
         overflow: 'visible',
     },
     text: {
