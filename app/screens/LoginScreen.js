@@ -92,7 +92,10 @@ function LoginScreen({ navigation }) {
                         <SubmitButton title="Login" />
                     </AppForm>
                     <AppButton title="Register" color="secondaryDark" onPress={() => navigation.navigate('Register')}/>
-                    <TouchableOpacity style={{marginBottom: 120}}>
+                    <TouchableOpacity
+                        style={{marginBottom: 120}}
+                        onPress={() => navigation.navigate('ForgotPassword')}
+                    >
                         <AppText style={styles.text}>Forgot password?</AppText>
                     </TouchableOpacity>
                 </View>
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
         width: "90%",
         height: "25%",
         marginLeft: 5,
+        paddingTop: 100,
         alignSelf: 'center',
         //backgroundColor: 'yellow',
         overflow: 'visible',

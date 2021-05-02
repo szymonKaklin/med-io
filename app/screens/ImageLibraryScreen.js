@@ -38,7 +38,7 @@ const handleSubmit = async (values, navigation, setLoading) => {
 
             // https://server-3lx5htvqrq-ew.a.run.app/predict
             // http://192.168.1.171:9999/predict
-            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
+            fetch("http://192.168.1.171:9999/predict", {
             method: 'POST',
             body: formData,
             headers: {
@@ -145,8 +145,8 @@ function ImageLibraryScreen({ navigation }) {
                 onPress={() => navigation.goBack()}
                 onPress2={() => Alert.alert(
                     'Image Selection',
-                    `This screen allows you to identify a pill using an image from you phone's image library.
-                    \nAlternatively, you can select 9 images to use our spectral imaging model.`
+                    `This screen allows you to identify a pill using an image from your phone's image library.
+                    \n9 images can be selected to use our spectral imaging model for testing purposes.`
                 )}
             />
             {loading && 

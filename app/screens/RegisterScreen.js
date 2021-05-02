@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         width: "90%",
         height: "40%",
         marginLeft: 5,
-        paddingTop: 30,
+        paddingTop: 90,
         alignSelf: 'center',
         //backgroundColor: 'yellow',
         overflow: 'visible',

@@ -15,7 +15,8 @@ __pycache__/
 *$py.class
 
 # Python model - too large of a file
-model.pt
+*.pt
+*.h5
 
 # Firebase config - api keys and sensitive information
 /app/auth/firebaseConfig.js

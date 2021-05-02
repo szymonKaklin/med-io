@@ -10,6 +10,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import InfoScreen from '../screens/InfoScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CameraScreen from '../screens/CameraScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 
 const MenuStack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const MenuNavigator = () => (
         <MenuStack.Screen name="Camera" component={CameraScreen}/>
         <MenuStack.Screen name="Login" component={LoginScreen}/>
         <MenuStack.Screen name="Register" component={RegisterScreen}/>
+        <MenuStack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
         <MenuStack.Screen name="Info" component={InfoScreen}/>
         <MenuStack.Screen name="Settings" component={SettingsScreen}/>
         <MenuStack.Screen name="Prescriptions" component={NestedPrescriptions}/>

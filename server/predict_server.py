@@ -4,6 +4,7 @@ from flask import Flask, request
 from flask_cors import CORS
 
 from predict import get_prediction
+from predict_3d import get_3d_prediction
 
 app = Flask(__name__)
 CORS(app)  # Set the cross origin header so that api can be called from the browser
@@ -15,12 +16,24 @@ def predict():
     number_of_images = len(request.files.getlist('file'))
 
     if number_of_images == 9:
-        # Pseudocode (TO_DO):
-        # Loop through images
-        # Read each image into bytes, and append to an array
-        # label, confidence = get_prediction( [<array_of_images>] )
+        image_array = []
 
-        return json.dumps({"label": "allo", "confidence": 1})
+        for image in request.files.getlist('file'):
+            image_array.append(image.read())
+
+        label, confidence = get_3d_prediction(image_array[0], image_array[1], image_array[2],
+                                              image_array[3], image_array[4], image_array[5], image_array[6], image_array[7],
+                                              image_array[8])
+
+        response = {  # Create a dictionary with the prediction
+            "label": label,
+            "confidence": float(confidence)
+        }
+
+        print(response['label'])
+        print(response['confidence'])
+
+        return json.dumps(response)
     else:
         file = request.files['file']  # Get the image from the post
         img_bytes = file.read()  # Read the dat afrom the image
@@ -30,6 +43,8 @@ def predict():
             "label": label,
             "confidence": confidence
         }
+        print(response['label'])
+        print(response['confidence'])
         # Convert the prediction dictionary to JSON and return it as a string
         return json.dumps(response)
 

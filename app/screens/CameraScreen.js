@@ -37,7 +37,7 @@ function capturePill(navigation, cameraRef, setLoading, setAnimating) {
             // https://server-3lx5htvqrq-ew.a.run.app/predict
             // Local: 
             // "http://192.168.1.171:9999/predict"
-            fetch("https://server-3lx5htvqrq-ew.a.run.app/predict", {
+            fetch("http://192.168.1.171:9999/predict", {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -70,6 +70,7 @@ function capturePill(navigation, cameraRef, setLoading, setAnimating) {
                 // The model returns the confidence as logsoftmax (this is a strange function with a negative value).
                 // If the confidence is more positive than -1 we assume the prediction is correct. Otherwise there is no prediction.
                 // This assumption needs tuning
+                console.log(result.confidence);
                 let medicineID = result.confidence > -1 ? result.label : null;
 
                 // Navigate to the results page sending the id of the medicien and the image as parameters
