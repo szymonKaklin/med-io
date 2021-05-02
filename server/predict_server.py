@@ -30,9 +30,6 @@ def predict():
             "confidence": float(confidence)
         }
 
-        print(response['label'])
-        print(response['confidence'])
-
         return json.dumps(response)
     else:
         file = request.files['file']  # Get the image from the post
@@ -43,8 +40,7 @@ def predict():
             "label": label,
             "confidence": confidence
         }
-        print(response['label'])
-        print(response['confidence'])
+
         # Convert the prediction dictionary to JSON and return it as a string
         return json.dumps(response)
 
